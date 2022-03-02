@@ -1,0 +1,10 @@
+﻿body {
+}
+
+.news {
+    background-color: greenyellow;
+    line-height: 5rem;
+    font-size: 18px;
+    color: white;
+    margin-bottom: 25px;
+}

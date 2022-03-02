@@ -1,0 +1,43 @@
+﻿body {
+}
+
+header {
+    background-color: #FECD45;
+    line-height: 6rem;
+    font-size: 20px;
+    text-align: center;
+}
+
+footer {
+    background-color: black;
+    line-height: 8rem;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+.bg-light {
+    background-color: lightskyblue !important;
+}
+
+.sectionnav {
+    background-color: lightskyblue;
+}
+
+.mybtn {
+    width: 130px !important;
+}
+
+#carouselExampleControls1 {
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    #carouselExampleControls1 {
+        display: block;
+    }
+
+    #carouselExampleControls {
+        display: none;
+    }
+}
