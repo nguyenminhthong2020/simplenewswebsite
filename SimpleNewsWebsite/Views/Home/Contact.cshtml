@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Trang liên hệ";
+}
+
+<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-8 col-sm-8 margin-bottom margin-top">
+                <div class="contact_area wow fadeInLeftBig animated" style="visibility: visible; animation-name: fadeInLeftBig;">
+                    <form action="#" class="contact_form">
+                        <input class="form-control margin-bottom" type="text" placeholder="Name(Required)">
+                        <input class="form-control margin-bottom" type="mail" placeholder="Email(Required)">
+                        <input class="form-control margin-bottom" type="text" placeholder="Subject">
+                        <textarea class="form-control margin-bottom" cols="30" rows="10" placeholder="Message"></textarea>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-4 col-sm-4 margin-top">
+                <div class="contact_address wow fadeInRightBig animated" style="visibility: visible; animation-name: fadeInRightBig;">
+                    <h3>Address</h3>
+                    <p>Fusce dapibus, tellus commodo, tortor mauris condimentum utellus fermentum, porta sem malesuada magna. Sed posuere consectetur est at lobortis. Morbi leo risus, porta ac consectetur.</p>
+                    <h4>Cyber Tech</h4>
+                    <address>
+                        <p>Moon Street Light Avenue, 14/05</p>
+                        <p>Jupiter, JP 80630</p>
+                        <p>P: 00 (123) 456 78 90</p>
+                        <a href="mailto:#">first.last@email.com</a>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section CSS{
+    <link href="~/css/contact.css" rel="stylesheet" />
+}
