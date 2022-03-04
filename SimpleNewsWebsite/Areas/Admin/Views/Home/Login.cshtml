@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Trang đăng nhập";
+    ViewBag.TextLogin = "";
+}
+
+<div>
+    <p>
+        Trang login nè
+    </p>
+    <br /><br /><br />
+    Tên: @ViewData["usernamepassword"]
+    <br /><br /><br />
+    <form asp-controller="Home" asp-action="Login" method="post">
+        <div class="mb-3">
+            <label for="exampleInputUsername" class="form-label">Username</label>
+            <input name="username" type="text" class="form-control" id="username" placeholder="Nhập username">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword" class="form-label">Password</label>
+            <input name="password" type="password" class="form-control" id="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+    </form>
+</div>
