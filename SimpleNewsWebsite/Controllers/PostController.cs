@@ -16,5 +16,13 @@ namespace SimpleNewsWebsite.Controllers
         {
             return View();
         }
+
+        [Route("Post/Detail/{id:int}")]
+        public IActionResult Detail(int id)
+        {
+            string imageURL = "~/img/h" + id + ".jpg";
+            ViewData["link"] = imageURL;
+            return View();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimpleNewsWebsite.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
     {
         public IActionResult ListPosts()
         {
-            return View();
+            var model = new ListCategoryViewModel();
+            return View(model);
         }
 
         public IActionResult EditPost()

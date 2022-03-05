@@ -16,6 +16,10 @@ footer {
     text-align: center;
 }
 
+h5 {
+    text-decoration: none !important;
+}
+
 .bg-light {
     background-color: lightskyblue !important;
 }
