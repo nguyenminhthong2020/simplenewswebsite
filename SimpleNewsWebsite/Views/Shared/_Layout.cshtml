@@ -20,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active"
+                            <a class="nav-link@(ViewBag.PageCode==1?" active":"")"
                                aria-current="page"
                                asp-controller="Home"
                                asp-action="Index">Trang chủ</a>
@@ -28,9 +28,14 @@
                             @*<a class="nav-link active" aria-current="page" href="#">Trang chủ</a>*@
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Danh mục
-                            </a>
+                            @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Danh mục
+                                </a>*@
+                            <a class="nav-link dropdown-toggle@(ViewBag.PageCode==2?" active":"")"
+                               id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                               asp-controller="Post"
+                               asp-action="List">Danh mục</a>
+
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Thể thao</a></li>
                                 <li><a class="dropdown-item" href="#">Giáo dục</a></li>
@@ -38,12 +43,9 @@
                                 <li><a class="dropdown-item" href="#">Khoa học</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            @*<a class="nav-link" href="">Liên hệ</a>*@
-                            <a class="nav-link"
-                               asp-controller="Home"
-                               asp-action="Contact">Liên hệ</a>
-                        </li>
+                        <a class="nav-link@(ViewBag.PageCode==3?" active":"")"
+                           asp-controller="Home"
+                           asp-action="Contact">Liên hệ</a>
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -124,5 +126,7 @@
     <partial name="_JSPartial" />
     @*@await Html.PartialAsync("_JSPartial")*@
     @RenderSection("JS", required: false)
+    <script src="~/js/layout.js"></script>
+    <script src="~/js/newlayout.js"></script>
 </body>
 </html>

@@ -18,7 +18,8 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
 
         public IActionResult EditPost()
         {
-            return View();
+            var model = new ListCategoryViewModel();
+            return View(model);
         }
     }
 }
