@@ -3,6 +3,7 @@
 *@
 @{
     ViewBag.Title = "Trang chủ";
+    ViewBag.PageCode = 1;
 }
 <div class="container">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -27,27 +28,35 @@
         </button>
     </div>
 </div>
-<div class="container-fluid news">
-    <div class="container">
+<section class="container-fluid news">
+    <div class="container p-0">
         Tin tức mới
     </div>
-</div>
+</section>
 <div class="container" style="margin-bottom: 60px;">
     <div class="row align-items-start">
         <div class="col">
             <div class="card" style="width: 18rem;">
-                <img src="~/img/h1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 1</h5>
-                </div>
+                <a asp-controller="Post"
+                   asp-action="Detail"
+                   asp-route-id="1">
+                    <img src="~/img/h1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 1</h5>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="col">
             <div class="card" style="width: 18rem;">
-                <img src="~/img/h2.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 2</h5>
-                </div>
+                <a asp-controller="Post"
+                   asp-action="Detail"
+                   asp-route-id="2">
+                    <img src="~/img/h2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 2</h5>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="col">

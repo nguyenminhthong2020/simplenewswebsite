@@ -42,6 +42,8 @@ insert into dbo.Category(Cat_ID, Cat_Name, Cat_Mem, Cat_Pre, Cat_Edit, Cat_Statu
 insert into dbo.Category(Cat_ID, Cat_Name, Cat_Mem, Cat_Pre, Cat_Edit, Cat_Status) values(2, 'Science', 'admin', null, null, 1)
 insert into dbo.Category(Cat_ID, Cat_Name, Cat_Mem, Cat_Pre, Cat_Edit, Cat_Status) values(3, 'Education', 'admin', null, null, 1)
 insert into dbo.Category(Cat_ID, Cat_Name, Cat_Mem, Cat_Pre, Cat_Edit, Cat_Status) values(4, 'Business', 'admin', null, null, 1)
+insert into dbo.Category(Cat_ID, Cat_Name, Cat_Mem, Cat_Pre, Cat_Edit, Cat_Status) values(5, 'Travel', 'admin', null, null, 0)
+insert into dbo.Category(Cat_ID, Cat_Name, Cat_Mem, Cat_Pre, Cat_Edit, Cat_Status) values(6, 'Life', 'admin', null, null, 0)
 
 
 insert into dbo.Post(Pos_ID, Pos_Title, Pos_Img, Pos_Brief, Pos_Content, Pos_Mem, Pos_Cat, Pos_Cre, Pos_Edit, Pos_Status) values(1, N'CLB Hà Nội hết thủ môn đá V-League', 'https://i1-thethao.vnecdn.net/2022/02/28/a0-jpeg-7544-1646047145.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=0c2SEFMS9RACMAJAKNepVQ', N'Trận đấu giữa Hà Nội và Viettel ở vòng 2 V-League 2022 gần như chắc chắn bị hoãn do đội bóng của bầu Hiển không còn thủ môn đủ điều kiện thi đấu', N'Chia sẻ với VnExpress hôm nay, Giám đốc Điều hành CLB Hà Nội Nguyễn Quốc Tuấn xác nhận CLB Hà Nội có 11 cầu thủ nhiễm Covid-19, trong đó có bốn thủ môn. Bùi Tấn Trường xét nghiệm dương tính hôm 26/2, một ngày sau tới lượt Nguyễn Văn Công và hôm nay là bộ đôi trẻ Nguyễn Bá Minh Hiếu và Quan Văn Chuẩn', 'admin', 1, null, null, null)

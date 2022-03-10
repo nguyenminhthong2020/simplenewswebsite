@@ -1,0 +1,11 @@
+﻿body {
+}
+
+.myBox {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+    background-color: darkorchid;
+}
