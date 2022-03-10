@@ -16,3 +16,17 @@ input {
 input[type=checkbox] {
     vertical-align: middle;
 }
+
+input[type=text] {
+    vertical-align: middle;
+}
+
+input[type=text]{
+    width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+    input[type=text] {
+        width: 100%;
+    }
+}

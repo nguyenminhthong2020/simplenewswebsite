@@ -17,7 +17,8 @@ namespace SimpleNewsWebsite.Controllers
             return View();
         }
 
-        [Route("Post/Detail/{id:int}")]
+        //[Route("Post/Detail/{id:int}")]
+        [HttpGet]
         public IActionResult Detail(int id)
         {
             string imageURL = "~/img/h" + id + ".jpg";

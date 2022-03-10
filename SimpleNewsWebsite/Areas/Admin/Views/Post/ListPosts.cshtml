@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Trang listpost";
     ViewBag.TextLogin = "Admin đang đăng nhập";
+    ViewBag.PageCode = 3;
 }
 @model SimpleNewsWebsite.Areas.Admin.Models.ListCategoryViewModel;
 
@@ -16,7 +17,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
-                        <input name="query" type="text" id="query" placeholder="Nhập từ khóa">
+                        <input name="query" type="text" id="query" placeholder="Nhập từ khóa" class="w-100">
                         @*<select class="form-select" name="catName" id="catName">
                                 <option selected>Chọn danh mục</option>
                                 <option value="1">Sport</option>
@@ -24,15 +25,15 @@
                                 <option value="3">Science</option>
                             </select>*@
                     </div>
-                    <div class="col-sm-12 col-md-3"><select asp-for="ListCategory" asp-items="Model.Categories"></select></div>
+                    <div class="col-sm-12 col-md-3"><select class="w-100" asp-for="ListCategory" asp-items="Model.Categories"></select></div>
                     <div class="col-sm-12 col-md-3">
-                        <select class="form-select" name="catStatus" id="catStatus">
+                        <select class="form-select w-100" name="catStatus" id="catStatus">
                             <option selected>Chọn trạng thái</option>
                             <option value="0">Ẩn</option>
                             <option value="1">Hiện</option>
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-3"><button type="submit" class="btn btn-primary">Tìm</button></div>
+                    <div class="col-sm-12 col-md-3"><button type="submit" class="btn btn-primary w-100">Tìm</button></div>
                 </div>
             </div>
         </div>

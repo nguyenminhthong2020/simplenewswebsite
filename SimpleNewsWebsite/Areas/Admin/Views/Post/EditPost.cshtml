@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Trang editpost";
     ViewBag.TextLogin = "Admin đang đăng nhập";
+    ViewBag.PageCode = 4;
 }
 
 @model SimpleNewsWebsite.Areas.Admin.Models.ListCategoryViewModel;
@@ -20,24 +21,25 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-4">
-                <img src="" alt="Alternate Text" class="form-control" />
-                <input type="file" id="profile_pic" name="profile_pic"
-                       accept=".jpg, .jpeg, .png" class="form-control">
+                <img src="~/admin/img/no-image.png" id="previewImg" alt="Alternate Text" class="form-control w-100" />
+                @*<br />*@
+                <input type="file" onchange="previewFile(this);" id="profile_pic" name="profile_pic"
+                       accept=".jpg, .jpeg, .png" class="form-control" style="transform: translate(0px, -370px); height: 90%;display:none;">
             </div>
             <div class="col-sm-12 col-md-8">
                 <input name="query" type="text" class="form-control" id="query" placeholder="Nhập tiêu đề bài viết">
                 <br />
-                <textarea rows="4" id="brief" class="form-control">
+                <textarea rows="8" id="brief" class="form-control">
                 </textarea>
             </div>
         </div>
         <br />
         <div class="row">
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-3 mb-1">
                 <input name="query" type="text" id="query" placeholder="Nhập từ khóa" class="form-control">
             </div><br />
-            <div class="col-sm-12 col-md-3"><select asp-for="ListCategory" asp-items="Model.Categories" class="form-control"></select></div><br />
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-3 mb-1"><select asp-for="ListCategory" asp-items="Model.Categories" class="form-control"></select></div><br />
+            <div class="col-sm-12 col-md-3 mb-1">
                 <select class="form-select form-control" name="catStatus" id="catStatus">
                     <option selected>Chọn trạng thái</option>
                     <option value="0">Ẩn</option>

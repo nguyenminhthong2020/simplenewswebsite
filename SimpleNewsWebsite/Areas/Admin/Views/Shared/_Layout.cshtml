@@ -14,7 +14,7 @@
         </div>
         <div class="header-right">
             <u>
-                @ViewBag.TextLogin
+                @(ViewBag.Title == "Trang đăng nhập" ? "" : "Admin đăng nhập :v")
             </u>
         </div>
     </header>
@@ -29,7 +29,8 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link"
+                                    <a class="nav-link@(ViewBag.PageCode==1?" active":"")"
+                                       asp-area="Admin"
                                        asp-controller="Home"
                                        asp-action="Dashboard">Dashboard</a>
                                 </li>
@@ -43,17 +44,20 @@
                                     <div class="collapse show" id="collapseExample" style="">
                                         <ul class="nav flex-column sub-menu">
                                             <li class="nav-item">
-                                                <a class="nav-link"
+                                                <a class="nav-link@(ViewBag.PageCode==2?" active":"")"
+                                                   asp-area="Admin"
                                                    asp-controller="Category"
                                                    asp-action="Category">&nbsp; &nbsp;&nbsp;&nbsp;Danh mục</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link"
+                                                <a class="nav-link@(ViewBag.PageCode==3?" active":"")"
+                                                   asp-area="Admin"
                                                    asp-controller="Post"
                                                    asp-action="ListPosts">&nbsp; &nbsp;&nbsp;&nbsp;DS Bài viết</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link"
+                                                <a class="nav-link@(ViewBag.PageCode==4?" active":"")"
+                                                   asp-area="Admin"
                                                    asp-controller="Post"
                                                    asp-action="EditPost">&nbsp; &nbsp;&nbsp;&nbsp;Thêm bài viết</a>
                                             </li>

@@ -1,2 +1,8 @@
-﻿body {
+﻿#formlogin input{
+    width: 250px;
+}
+
+#formlogin{
+    display: flex;
+    justify-content: center;
 }

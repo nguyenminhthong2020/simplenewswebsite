@@ -10,7 +10,6 @@ header {
 
 .header-left {
     font-size: 1.5rem;
-    /*margin-left: 0;*/
     color: white;
 }
 
@@ -30,6 +29,10 @@ main #leftNavbarPhone {
 
 #leftNavbarPhone {
     display: none;
+}
+
+.active {
+    color: yellow;
 }
 
 @media screen and (max-width: 768px) {
@@ -58,18 +61,22 @@ nav span, nav a {
 footer {
     line-height: 10vh;
     color: white;
-    background-color: black;
+    background-color: #6a008a;
     text-align: center;
 }
 
 #leftNavbarWeb {
-    background-color: #6a008a;
+    background-color: black;
     color: white;
 }
 
 #leftNavbarPhone {
-    background-color: #6a008a;
+    background-color: black;
     color: white;
+}
+
+.navbar-toggler {
+    background-color: #c9c635de !important;
 }
 
 .sidebar .nav.sub-menu {

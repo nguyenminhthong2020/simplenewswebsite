@@ -2,8 +2,12 @@
 }
 
 .news {
-    background-color: greenyellow;
+    background-color: purple;
     font-size: 18px;
     color: white;
     margin-bottom: 25px;
+}
+
+a {
+    text-decoration: none !important;
 }
