@@ -1,0 +1,91 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Trang listpost";
+    ViewBag.TextLogin = "Admin đang đăng nhập";
+    ViewBag.PageCode = 3;
+}
+@model SimpleNewsWebsite.Areas.Admin.Models.ListCategoryViewModel;
+
+<div>
+    <p>
+        Trang listpost nè @ViewData["usernamepassword"]
+    </p>
+    <form asp-controller="Post" asp-action="ListPosts" method="post">
+        <div class="mb-4">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3">
+                        <input name="query" type="text" id="query" placeholder="Nhập từ khóa" class="w-100">
+                        @*<select class="form-select" name="catName" id="catName">
+                                <option selected>Chọn danh mục</option>
+                                <option value="1">Sport</option>
+                                <option value="2">Education</option>
+                                <option value="3">Science</option>
+                            </select>*@
+                    </div>
+                    <div class="col-sm-12 col-md-3"><select class="w-100" asp-for="ListCategory" asp-items="Model.Categories"></select></div>
+                    <div class="col-sm-12 col-md-3">
+                        <select class="form-select w-100" name="catStatus" id="catStatus">
+                            <option selected>Chọn trạng thái</option>
+                            <option value="0">Ẩn</option>
+                            <option value="1">Hiện</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-3"><button type="submit" class="btn btn-primary w-100">Tìm</button></div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br /><br /><br />
+    <h4>Danh sách bài viết</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Hình</th>
+                <th scope="col">Tiêu đề</th>
+                <th scope="col">Danh mục</th>
+                <th scope="col">Chức năng</th>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td><img src="~/logo/l9.png" alt="Alternate Text" /></td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td><img src="~/logo/l9.png" alt="Alternate Text" /></td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td><img src="~/logo/l9.png" alt="Alternate Text" /></td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>mdo</td>
+            </tr>
+        </thead>
+    </table>
+    <br /><br />
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section CSS{
+    <link href="~/admin/css/listpost.css" rel="stylesheet" />
+}

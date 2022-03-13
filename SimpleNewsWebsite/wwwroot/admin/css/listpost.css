@@ -1,0 +1,14 @@
+﻿body {
+}
+
+input {
+    vertical-align: middle;
+}
+
+    input[type=text] {
+        vertical-align: middle;
+    }
+
+select, button {
+    vertical-align: middle;
+}

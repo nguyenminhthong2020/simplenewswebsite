@@ -3,7 +3,10 @@
 *@
 @{
     ViewBag.Title = "Trang chủ";
+    ViewBag.PageCode = 1;
+    var list_four_new_post = ViewData["list_four_new_post"] as List<SimpleNewsWebsite.Models.Post>;
 }
+
 <div class="container">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -27,47 +30,93 @@
         </button>
     </div>
 </div>
-<div class="container-fluid news">
-    <div class="container">
+<section class="container-fluid news">
+    <div class="container p-0">
         Tin tức mới
     </div>
-</div>
+</section>
 <div class="container" style="margin-bottom: 60px;">
     <div class="row align-items-start">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="~/img/h1.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 1</h5>
+        @for (int i = 0; i < list_four_new_post.Count; i++)
+        {
+            <div class="col d-flex align-self-stretch">
+                <div class="card" style="width: 18rem;">
+                    <a asp-controller="Post"
+                       asp-action="Detail"
+                       asp-route-id="@list_four_new_post[i].PosID">
+                        <img src="@list_four_new_post[i].PosImg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@list_four_new_post[i].PosTitle</h5>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="~/img/h2.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 2</h5>
+        }
+        @*<div class="col">
+                <div class="card" style="width: 18rem;">
+                    <a asp-controller="Post"
+                       asp-action="Detail"
+                       asp-route-id="1">
+                        <img src="~/img/h1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Tiêu đề tin tức 1</h5>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="~/img/h3.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 3</h5>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <a asp-controller="Post"
+                       asp-action="Detail"
+                       asp-route-id="2">
+                        <img src="~/img/h2.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Tiêu đề tin tức 2</h5>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="~/img/h4.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 4</h5>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="~/img/h3.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 3</h5>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="~/img/h4.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 4</h5>
+                    </div>
+                </div>
+            </div>*@
     </div>
+    <br /><br />
+    <button id="btn" type="button">Click me</button>
 
     @section CSS{
         <link href="~/css/index.css" rel="stylesheet" />
+    }
+
+    @section JS{
+        <script>
+            document.getElementById('btn').onclick = function () {
+                $.ajax({
+                    method: "GET",
+                    url: "api/sample",
+                    //dataType: "text", //json
+                    data: {}
+                })
+                    .done(function (msg) {
+                        //alert(`Thành công nè: \n${msg['name']} ${msg['lastName']}\n${msg['age']}`);
+                        alert(`Thành công tiếp nè: \n${msg[0]}-${msg[1]} :v`)
+                    }).fail(
+                        function (jqXHR, textStatus) {
+                            alert("Fail nè: " + textStatus);
+                        }
+                    )
+            }
+        </script>
     }

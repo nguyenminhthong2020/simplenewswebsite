@@ -1,0 +1,161 @@
+﻿body {
+    margin: 0;
+}
+
+header {
+    background-color: #6a008a;
+    line-height: 10vh;
+    color: white;
+}
+
+.header-left {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.header-right {
+    /*margin-right: 0;*/
+    color: white;
+}
+
+main #leftNavbarWeb {
+    min-height: 80vh;
+    color: white;
+}
+
+main #leftNavbarPhone {
+    color: white;
+}
+
+#leftNavbarPhone {
+    display: none;
+}
+
+.active {
+    color: yellow;
+}
+
+@media screen and (max-width: 768px) {
+    #leftNavbarWeb {
+        display: none;
+    }
+
+    #leftNavbarPhone {
+        display: block;
+    }
+}
+
+
+nav span, nav a {
+    color: white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
+}
+
+footer {
+    line-height: 10vh;
+    color: white;
+    background-color: #6a008a;
+    text-align: center;
+}
+
+#leftNavbarWeb {
+    background-color: black;
+    color: white;
+}
+
+#leftNavbarPhone {
+    background-color: black;
+    color: white;
+}
+
+.navbar-toggler {
+    background-color: #c9c635de !important;
+}
+
+.sidebar .nav.sub-menu {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0 0 0 3.25rem;
+    margin-left: 20px;
+    list-style: none;
+}
+
+
+/*#leftNavbarPhone {
+    display: none;
+}*/
+
+/*@media screen and (max-width: 767px) {*/
+/*#leftNavbarPhone {
+        display: block;
+    }*/
+
+/*#leftNavbarWeb {
+        display: none;
+    }
+}*/
+
+/*.container-scroller {*/
+/*display: flex;
+    position: relative;
+    overflow: hidden;*/
+/*margin: 0;
+}
+
+.sidebar {
+    min-height: calc(100vh - 70px);
+    background: #191c24;
+    font-weight: normal;
+    padding: 0;
+    width: 244px;
+    z-index: 11;
+    transition: width 0.25s ease, background 0.25s ease;
+    -webkit-transition: width 0.25s ease, background 0.25s ease;
+    -moz-transition: width 0.25s ease, background 0.25s ease;
+    -ms-transition: width 0.25s ease, background 0.25s ease;
+}
+
+.page-body-wrapper {
+    min-height: 100vh;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    transition: all 0.25s ease;
+    width: calc(100% - 244px);
+}*/
+
+/*nav {
+    display: block;
+}*/
+
+/*.main-panel {
+    transition: width 0.25s ease, margin 0.25s ease;
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    padding-top: 70px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    background: #000000;
+    padding: 1.875rem 1.75rem;
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}*/
+
+
+

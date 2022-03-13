@@ -2,9 +2,12 @@
 }
 
 .news {
-    background-color: greenyellow;
-    line-height: 5rem;
+    background-color: purple;
     font-size: 18px;
     color: white;
     margin-bottom: 25px;
+}
+
+a {
+    text-decoration: none !important;
 }

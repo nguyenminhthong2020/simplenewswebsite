@@ -3,27 +3,40 @@
 *@
 @{
     ViewBag.Title = "Chi tiết bài đăng";
+    var post_detail = ViewData["post_detail"] as SimpleNewsWebsite.Models.Post;
 }
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 col-sm-12 bg-danger">
-            <img src="~/img/h1.jpg" alt="Alternate Text" style="text-align: center" />
-            <br /><br /><br />
-            <p>
-                Nội dung tin tức
-            </p>
-        </div>
-        <div class="col-md-4 col-sm-12 bg-info justify-content-center">
-            <div class="card mb-3" style="width: 18rem;">
-                <img src="~/logo/l7.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 1</h5>
-                </div>
+        <div class="col-md-8 col-sm-12" id="left">
+            <div style="width: 80%; margin-left: 10%;">
+                @*<img src="@Url.Content(String.Format("{0}", ViewData["link"]))" alt="Alternate Text" class="my-image" />*@
+                <img src="@post_detail.PosImg" alt="Alternate Text" class="my-image" />
+                <br /><br /><br />
+                <p class="text-start">
+                    @post_detail.PosTitle
+                </p>
+                <br />
+                <p>
+                    @post_detail.PosContent
+                </p>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="~/logo/l8.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tiêu đề tin tức 2</h5>
+        </div>
+        <div class="col-md-4 col-sm-12" id="right">
+            <div class="bg-info text-light p-2" style="font-size: 18px; font-weight: bold;">
+                <h2>Tin tức liên quan</h2>
+            </div>
+            <div style="margin: 30px;">
+                <div class="card mb-3">
+                    <img src="~/logo/l7.png" class="card-img-top" alt="..." width="100%">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 1</h5>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="~/logo/l8.png" class="card-img-top" alt="..." width="100%">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 2</h5>
+                    </div>
                 </div>
             </div>
         </div>
