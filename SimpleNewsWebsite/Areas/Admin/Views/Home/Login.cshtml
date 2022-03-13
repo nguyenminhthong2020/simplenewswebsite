@@ -14,7 +14,7 @@
     Tên: @ViewData["usernamepassword"]
     <br /><br /><br />
     <div id="formlogin">
-        <form asp-controller="Home" asp-action="Login" method="post">
+        <form asp-area="Admin" asp-controller="Home" asp-action="Login" method="post">
             <div class="mb-3">
                 <label for="exampleInputUsername" class="form-label">Username</label>
                 <input name="username" type="text" class="form-control" id="username" placeholder="Nhập username">
@@ -34,4 +34,26 @@
 
 @section CSS{
     <link href="~/admin/css/login.css" rel="stylesheet" />
+}
+
+@section JS{
+    <script>
+            //$.ajax({
+            //    method: "GET",
+            //    url: "",
+            //    data: {}
+            //})
+            //    .done(function (msg) {
+            //        alert("Data Saved: " + msg);
+            //    });
+
+            //                //$.ajax({
+            //                //    method: "POST",
+            //                //    url: "some.php",
+            //                //    data: { name: "John", location: "Boston" }
+            //                //})
+            //                //    .done(function (msg) {
+            //                //        alert("Data Saved: " + msg);
+            //                //    });
+    </script>
 }

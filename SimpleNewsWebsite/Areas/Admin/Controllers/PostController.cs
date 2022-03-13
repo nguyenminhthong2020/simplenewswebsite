@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SimpleNewsWebsite.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,18 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
     {
         public IActionResult ListPosts()
         {
+            //if (UserInfo.Check == true)
+            //if (HttpContext.Session.GetString("Check") == "true")
+            //{
+            //    ViewData["usernamepassword"] = $"after loggin, username: {UserInfo.Username}, pass: {UserInfo.Password}";
+            //    var model = new ListCategoryViewModel();
+            //    return View(model);
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Login", "Home", new { area = "Admin" });
+            //}
+            ViewData["usernamepassword"] = $"after loggin, username: {UserInfo.Username}, pass: {UserInfo.Password}";
             var model = new ListCategoryViewModel();
             return View(model);
         }

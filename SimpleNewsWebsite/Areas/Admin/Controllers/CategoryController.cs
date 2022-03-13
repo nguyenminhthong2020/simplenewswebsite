@@ -13,5 +13,12 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Category(string catName, bool catStatus)
+        {
+            ViewData["form1"] = $"{catName} & {catStatus}";
+            return View();
+        }
     }
 }

@@ -11,7 +11,10 @@
     <p>
         Trang category nè
     </p>
-    <form asp-controller="Post" asp-action="Category" method="post">
+    <br />
+    Form1: &nbsp;@ViewData["form1"]
+    <br />
+    <form asp-area="Admin" asp-controller="Category" asp-action="Category" method="post">
         <div class="mb-4">
             <input name="catName" type="text" id="catName" placeholder="Nhập tên danh mục">
             &nbsp;<input class="form-check-input" type="checkbox" name="catStatus" value="" id="catStatus">&nbsp;<span id="hienThi">Hiển thị</span>

@@ -129,3 +129,9 @@ D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\obj\Debug\net5.0\Ra
 D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\obj\Debug\net5.0\Razor\Areas\Admin\Views\Post\EditPost.cshtml.g.cs
 D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\obj\Debug\net5.0\Razor\Areas\Admin\Views\Post\ListPosts.cshtml.g.cs
 D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_CSSPartial.cshtml.g.cs
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\System.Data.SqlClient.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
