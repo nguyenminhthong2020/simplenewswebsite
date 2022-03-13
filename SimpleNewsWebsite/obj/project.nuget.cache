@@ -121,6 +121,7 @@
     "C:\\Users\\ACER\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
+<<<<<<< HEAD
   "logs": [
     {
       "code": "Undefined",
@@ -129,4 +130,7 @@
       "message": "Problem reading the cache file D:\\HK2.2022\\net\\03032022\\SimpleNewsWebsite\\SimpleNewsWebsite\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
+=======
+  "logs": []
+>>>>>>> 4c0ae08da8f4c45a3847200c927cc3aaa1b9b326
 }
