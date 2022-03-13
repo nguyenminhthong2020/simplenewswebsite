@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,10 +44,10 @@ namespace SimpleNewsWebsite
             name: "areas",
             pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
           );
-          //      endpoints.MapControllerRoute(
-          //  name: "api",
-          //  pattern: "api/{controller=Home}/{id?}"
-          //);
+                //      endpoints.MapControllerRoute(    // không thể thêm dòng này, thêm sẽ lỗi
+                //  name: "api",
+                //  pattern: "api/{controller=Home}/{id?}"
+                //);
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=home}/{action=index}/{id?}");
             });
         }

@@ -1,6 +1,8 @@
-SimpleNewsWebsite/obj/Debug/net5.0/SimpleNewsWebsite.assets.cache
-.vs/SimpleNewsWebsite/v16/.suo
-.vs/SimpleNewsWebsite/DesignTimeBuild/.dtbcache.v2
-SimpleNewsWebsite/obj/project.nuget.cache
-.vs/SimpleNewsWebsite/DesignTimeBuild/.dtbcache.v2
-SimpleNewsWebsite/obj/Debug/net5.0/project.razor.json
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
+*.exe
+*.pdb
+*.manifest
+*.cache
