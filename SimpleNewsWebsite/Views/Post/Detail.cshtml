@@ -3,23 +3,22 @@
 *@
 @{
     ViewBag.Title = "Chi tiết bài đăng";
+    var post_detail = ViewData["post_detail"] as SimpleNewsWebsite.Models.Post;
 }
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-sm-12" id="left">
             <div style="width: 80%; margin-left: 10%;">
-                <img src="@Url.Content(String.Format("{0}", ViewData["link"]))" alt="Alternate Text" class="my-image" />
+                @*<img src="@Url.Content(String.Format("{0}", ViewData["link"]))" alt="Alternate Text" class="my-image" />*@
+                <img src="@post_detail.PosImg" alt="Alternate Text" class="my-image" />
                 <br /><br /><br />
                 <p class="text-start">
-                    Nội dung tin tức của post có id là @ViewData["link"]
+                    @post_detail.PosTitle
                 </p>
+                <br />
                 <p>
- Thành công của movie "Dragon Ball Super: Broly" vào năm 2018 với tổng doanh thu 130 triệu USD là con số doanh thu cao ngất ngưởng mà xưởng phim anime Toei Animation đạt được. Tính đến nay, vẫn chưa có bộ phim nào vượt qua nổi con số trên dù Toei Animation đã thầu rất nhiều bộ anime nổi tiếng như One Piece, Slam Dunk, Sailor Moon, Dragon Quest, Digimon,...
-
-Khi xét về độ cuốn hút của movie Dragon Ball Super: Broly 2018, movie này có nhiều "dàn diễn viên quá hot" bao gồm: Goku, Vegeta, Frieza, Bardock... và bộ đôi nhân vật được các nước phương Tây rất thích đó là Broly và Gogeta. Điều này đã tạo nên sự hấp dẫn cho cả fan Dragon Ball chân chính và lẫn fan phòng trào ra rạp xem phim.
-
-Giò nói về movie mới nhất sắp ra mắt của Dragon Ball mang tên "Dragon Ball Super: Super Hero" dự kiến khởi chiếu vào tháng 4 năm 2022. Dàn nhân vật trung tâm như Goku, Vegeta phải lùi về sau để cho các tuyến nhân vật phụ như Gohan, Piccolo, Pan, Trunks, Goten,... tỏa sáng.
-</p>
+                    @post_detail.PosContent
+                </p>
             </div>
         </div>
         <div class="col-md-4 col-sm-12" id="right">

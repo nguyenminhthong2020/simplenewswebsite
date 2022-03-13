@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SimpleNewsWebsite.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace SimpleNewsWebsite
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
             services.AddControllersWithViews();
         }
 
@@ -27,9 +32,11 @@ namespace SimpleNewsWebsite
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-            app.UseStaticFiles();
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSession();
+            app.UseMiddleware<AuthenticationMiddleware>();
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
@@ -37,6 +44,10 @@ namespace SimpleNewsWebsite
             name: "areas",
             pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
           );
+          //      endpoints.MapControllerRoute(
+          //  name: "api",
+          //  pattern: "api/{controller=Home}/{id?}"
+          //);
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=home}/{action=index}/{id?}");
             });
         }

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@*@model List<SimpleNewsWebsite.Models.Category>*@
+@*@model SimpleNewsWebsite.Models.Category*@
+@{
+    var list_category = ViewData["list_category"] as List<SimpleNewsWebsite.Models.Category>;
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -37,10 +42,18 @@
                                asp-action="List">Danh mục</a>
 
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Thể thao</a></li>
-                                <li><a class="dropdown-item" href="#">Giáo dục</a></li>
-                                <li><a class="dropdown-item" href="#">Kinh doanh</a></li>
-                                <li><a class="dropdown-item" href="#">Khoa học</a></li>
+                                @*@for (int i = 0; i < Model.Categories.Count; i++)
+                                    {
+                                        <li><a class="dropdown-item" href="#">@Model.Categories[i].CatName</a></li>
+                                    }*@
+                                @for (int i = 0; i < list_category.Count; i++)
+                                {
+                                    <li><a class="dropdown-item" href="#">@list_category[i].CatName</a></li>
+                                }
+                                @*<li><a class="dropdown-item" href="#">Thể thao</a></li>
+                                    <li><a class="dropdown-item" href="#">Giáo dục</a></li>
+                                    <li><a class="dropdown-item" href="#">Kinh doanh</a></li>
+                                    <li><a class="dropdown-item" href="#">Khoa học</a></li>*@
                             </ul>
                         </li>
                         <a class="nav-link@(ViewBag.PageCode==3?" active":"")"
