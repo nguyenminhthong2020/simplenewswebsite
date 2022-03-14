@@ -51,5 +51,35 @@ namespace SimpleNewsWebsite.Models
                 return null;
             }
         }
+
+
+        public static int add(string iQuery, SqlParameter[] iParas)
+        {
+            SqlConnection con = connectDB();
+
+            if (con == null)
+            {
+                return 0;
+            }
+
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter();
+                SqlCommand command = new SqlCommand(iQuery, con);
+
+                if (iParas != null)
+                {
+                    command.Parameters.AddRange(iParas);
+
+                }
+                da.InsertCommand = command;
+                int result = command.ExecuteNonQuery();
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }

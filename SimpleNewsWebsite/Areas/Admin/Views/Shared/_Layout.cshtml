@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -14,7 +16,7 @@
         </div>
         <div class="header-right">
             <u>
-                @(ViewBag.Title == "Trang đăng nhập" ? "" : "Admin đăng nhập :v")
+                @(ViewBag.Title == "Trang đăng nhập" ? "" : @Context.Session.GetString("Username"))
             </u>
         </div>
     </header>

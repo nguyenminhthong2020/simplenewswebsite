@@ -1,10 +1,15 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    Tham khảo để làm Category table:
+    https://learningprogramming.net/net/asp-net-core-mvc-5/use-session-in-asp-net-core-mvc-5/
 *@
+
+@model SimpleNewsWebsite.Areas.Admin.Controllers.CategoryController.CategoryValidation
+
 @{
     ViewBag.Title = "Trang category";
     ViewBag.TextLogin = "Admin đang đăng nhập";
     ViewBag.PageCode = 2;
+    var list_category = ViewData["list_category"] as List<SimpleNewsWebsite.Models.Category>;
 }
 
 <div>
@@ -14,11 +19,15 @@
     <br />
     Form1: &nbsp;@ViewData["form1"]
     <br />
-    <form asp-area="Admin" asp-controller="Category" asp-action="Category" method="post">
+    <br />
+    Result (success): @ViewData["result"]
+    <br />
+    <form asp-area="Admin" asp-controller="Category" asp-action="Create" method="post" id="myform">
         <div class="mb-4">
-            <input name="catName" type="text" id="catName" placeholder="Nhập tên danh mục">
-            &nbsp;<input class="form-check-input" type="checkbox" name="catStatus" value="" id="catStatus">&nbsp;<span id="hienThi">Hiển thị</span>
-            &nbsp;<button type="submit" class="btn btn-primary">Thêm/cập nhật</button>
+            <input asp-for="@Model.catname" name="catname" type="text" id="catname" placeholder="Nhập tên danh mục">
+            &nbsp;<input asp-for="@Model.catstatus" name="catstatus" id="catstatus" class="form-check-input" type="checkbox">&nbsp;<span id="hienThi">Hiển thị</span>
+            &nbsp;<button type="submit" class="btn btn-primary" id="btnAdd">Thêm/cập nhật</button>
+            <div><span asp-validation-for="@Model.catname" class="text-danger"></span></div>
         </div>
     </form>
     <h4>Danh sách danh mục</h4>
@@ -39,129 +48,75 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>twitter</td>
-            </tr>
+            @for (int i = 0; i < list_category.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@list_category[i].CatID</th>
+                    <td>@list_category[i].CatName</td>
+                    <td>@(list_category[i].CatStatus == 1 ? "Hiển thị" : "Ẩn")</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btnEdit" id="@list_category[i].CatID">Sửa</button>
+                    </td>
+                </tr>
+            }
+            @*<tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Ẩn</td>
+                    <td>
+                        <button type="button" class="btn btn-warning">Sửa</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Hiển thị</td>
+                    <td><button type="button" class="btn btn-warning">Sửa</button></td>
+                </tr>*@
         </tbody>
     </table>
 </div>
 
 @section CSS{
     <link href="~/admin/css/category.css" rel="stylesheet" />
+}
+
+@section JS{
+    <script>
+        $(document).ready(function () {
+
+            btns = document.getElementsByClassName("btnEdit");
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].addEventListener("click", function () {
+                    alert(this.id);
+                });
+            }
+
+            document.getElementById("btnAdd").addEventListener('click', function (e) {
+                e.preventDefault();
+
+                let valCatname = document.getElementById('catname').value;
+                //let valCatstatus = document.getElementById('catstatus').value;
+
+                let my_url = `${window.location.origin}/api/category/${valCatname}`
+                $.ajax({
+                    method: "GET",
+                    url: my_url,
+                    data: {}
+                })
+                    .done(function (msg) {
+                        if (msg == "exist") {
+                            alert('Danh mục đã tồn tại')
+                        } else {
+                            document.getElementById("myform").submit();
+                        }
+                    }).fail(function (jqXHR, textStatus) {
+                        alert("Request failed: " + textStatus);
+                    })
+            })
+        });
+
+
+
+    </script>
 }

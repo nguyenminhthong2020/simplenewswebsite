@@ -54,6 +54,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                 {
                     HttpContext.Session.SetString("Check", u.Check);
                     HttpContext.Session.SetString("Role", u.Role.ToString());
+                    HttpContext.Session.SetString("Username", u.Username);
                     // tham khảo (hay)
                     // https://learningprogramming.net/net/asp-net-core-mvc/login-form-with-session-in-asp-net-core-mvc/
 
