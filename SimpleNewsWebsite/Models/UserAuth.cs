@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,6 +14,7 @@ namespace SimpleNewsWebsite.Models
     {
         private string _Username;
         private string _Password;
+
         private int _Role;
         private int _Status;
         private string _Check;

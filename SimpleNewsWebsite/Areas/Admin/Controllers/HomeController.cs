@@ -6,40 +6,75 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleNewsWebsite.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeController : Controller
     {
+        /// <summary>
+        /// use class UserValidation for validating form login
+        /// </summary>
+        public class UserValidation
+        {
+            [Required(ErrorMessage = "Phải có username")]
+            //[MinLength(3)]
+            [StringLength(50, MinimumLength = 3, ErrorMessage = "Chiều dài từ 3 - 50 ký tự")]
+            [Display(Name = "Username")]
+            public string username
+            {
+                get;
+                set;
+            }
+
+            [Required(ErrorMessage = "Thiếu password")]
+            [MinLength(3, ErrorMessage = "Chiều dài phải >=3 ký tự")]
+            [Display(Name = "Password")]
+            public string password
+            {
+                get;
+                set;
+            }
+        }
+
+
         public IActionResult Login()
         {
-            return View();
+            return View("Login", new UserValidation());
         }
 
         [HttpPost]
-        public IActionResult Login(string username, string password) // tham số truyền vào phải = name của các phần trong Form
+        public IActionResult Login(UserValidation userValidation) // tham số truyền vào phải = name của các phần trong Form
         {
-            UserAuth u = UserAuth.validate(username, password);
-            if (u != null)
+            if (ModelState.IsValid)
             {
-                HttpContext.Session.SetString("Check", u.Check);
-                HttpContext.Session.SetString("Role", u.Role.ToString());
-                // tham khảo (hay)
-                // https://learningprogramming.net/net/asp-net-core-mvc/login-form-with-session-in-asp-net-core-mvc/
+                UserAuth u = UserAuth.validate(userValidation.username, userValidation.password);
+                if (u != null)
+                {
+                    HttpContext.Session.SetString("Check", u.Check);
+                    HttpContext.Session.SetString("Role", u.Role.ToString());
+                    // tham khảo (hay)
+                    // https://learningprogramming.net/net/asp-net-core-mvc/login-form-with-session-in-asp-net-core-mvc/
 
-                UserInfo.Username = username;
-                UserInfo.Password = password;
-                UserInfo.Check = true;
-                ViewData["usernamepassword"] = $"This is {username} and {password}";
-                return RedirectToAction("Dashboard");
+                    UserInfo.Username = userValidation.username;
+                    UserInfo.Password = userValidation.password;
+                    UserInfo.Check = true;
+                    ViewData["usernamepassword"] = $"This is {userValidation.username} and {userValidation.password}";
+                    return RedirectToAction("Dashboard");
+                }
+                else
+                {
+                    UserInfo.Check = false;
+                    ViewBag.message = "Nhập sai ít nhất email hoặc password";
+                    return View("Login");
+                }
             }
             else
             {
                 UserInfo.Check = false;
-                return View();
+                return View("Login", userValidation);
             }
-            //return View();
         }
 
         //[Route("logout")]
