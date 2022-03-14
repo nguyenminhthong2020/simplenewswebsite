@@ -6,22 +6,26 @@
     ViewBag.TextLogin = "";
 }
 
+@model SimpleNewsWebsite.Areas.Admin.Controllers.HomeController.UserValidation
+
 <div>
     <p>
         Trang login nè
     </p>
     <br /><br /><br />
-    Tên: @ViewData["usernamepassword"]
-    <br /><br /><br />
+    <div class="text-danger text-center">@ViewBag.message</span></div>
+    <br /><br />
     <div id="formlogin">
         <form asp-area="Admin" asp-controller="Home" asp-action="Login" method="post">
             <div class="mb-3">
-                <label for="exampleInputUsername" class="form-label">Username</label>
-                <input name="username" type="text" class="form-control" id="username" placeholder="Nhập username">
+                <label asp-for="@Model.username" class="form-label"></label>
+                <input asp-for="@Model.username" name="username" type="text" class="form-control" id="username" placeholder="Nhập username">
+                <div><span asp-validation-for="@Model.username" class="text-danger"></span></div>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword" class="form-label">Password</label>
-                <input name="password" type="password" class="form-control" id="password">
+                <label asp-for="@Model.password" class="form-label"></label>
+                <input asp-for="@Model.password" name="password" type="password" class="form-control" id="password">
+                <div><span asp-validation-for="@Model.password" class="text-danger"></span></div>
             </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Đăng nhập</button>
@@ -38,22 +42,22 @@
 
 @section JS{
     <script>
-            //$.ajax({
-            //    method: "GET",
-            //    url: "",
-            //    data: {}
-            //})
-            //    .done(function (msg) {
-            //        alert("Data Saved: " + msg);
-            //    });
+                                                                                                                                                                                                    //$.ajax({
+                                                                                                                                                                                                    //    method: "GET",
+                                                                                                                                                                                                    //    url: "",
+                                                                                                                                                                                                    //    data: {}
+                                                                                                                                                                                                    //})
+                                                                                                                                                                                                    //    .done(function (msg) {
+                                                                                                                                                                                                    //        alert("Data Saved: " + msg);
+                                                                                                                                                                                                    //    });
 
-            //                //$.ajax({
-            //                //    method: "POST",
-            //                //    url: "some.php",
-            //                //    data: { name: "John", location: "Boston" }
-            //                //})
-            //                //    .done(function (msg) {
-            //                //        alert("Data Saved: " + msg);
-            //                //    });
+                                                                                                                                                                                                    //                //$.ajax({
+                                                                                                                                                                                                    //                //    method: "POST",
+                                                                                                                                                                                                    //                //    url: "some.php",
+                                                                                                                                                                                                    //                //    data: { name: "John", location: "Boston" }
+                                                                                                                                                                                                    //                //})
+                                                                                                                                                                                                    //                //    .done(function (msg) {
+                                                                                                                                                                                                    //                //        alert("Data Saved: " + msg);
+                                                                                                                                                                                                    //                //    });
     </script>
 }
