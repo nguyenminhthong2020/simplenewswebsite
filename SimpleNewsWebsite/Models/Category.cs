@@ -75,6 +75,38 @@ namespace SimpleNewsWebsite.Models
             return lst;
         }
 
+
+        public static Category getCategory(string id)
+        {
+            int _id = Convert.ToInt32(id);
+            SqlParameter[] paras = new SqlParameter[1];
+            paras[0] = new SqlParameter("@id", _id);
+
+            DataTable dt = DataProvider.getList(@"
+            SELECT [Cat_ID]
+                  ,[Cat_Name]
+                  ,[Cat_Mem]
+                  ,[Cat_Cre]
+                  ,[Cat_Edit]
+                  ,[Cat_Status]
+              FROM [db_news].[dbo].[Category]
+            WHERE [Cat_ID] = @id
+            ", paras);
+
+            List<Category> lst = new List<Category>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Category cat = new Category(Convert.ToInt32(dr["Cat_ID"]),
+                                            dr["Cat_Name"].ToString(), dr["Cat_Mem"].ToString(),
+                                            dr["Cat_Cre"] == null ? Convert.ToDateTime(dr["Cat_Cre"]) : null,
+                                            dr["Cat_Edit"] == null ? Convert.ToDateTime(dr["Cat_Edit"]) : null,
+                                            Convert.ToInt32(dr["Cat_Status"]));
+
+                lst.Add(cat);
+            }
+            return lst[0];
+        }
+
         /// <summary>
         /// check Category from input submit has exsist ?
         /// </summary>
@@ -100,6 +132,27 @@ namespace SimpleNewsWebsite.Models
             return "exist";
         }
 
+        public static string checkCategoryExist2(string id, string name)
+        {
+            int _id = Convert.ToInt32(id);
+            SqlParameter[] paras = new SqlParameter[2];
+            paras[0] = new SqlParameter("@name", name);
+            paras[1] = new SqlParameter("@id", _id);
+
+            DataTable dt = DataProvider.getList(@"
+            SELECT [Cat_ID]
+                  ,[Cat_Name]
+                  ,[Cat_Mem]
+                  ,[Cat_Cre]
+                  ,[Cat_Edit]
+                  ,[Cat_Status]
+              FROM [db_news].[dbo].[Category]
+              WHERE [Cat_Name] = @name AND [Cat_ID] != @id
+            ", paras);
+
+            if (dt.Rows.Count == 0) return "no exist";
+            return "exist";
+        }
 
         public static int add(string name, bool status, string mem)
         {

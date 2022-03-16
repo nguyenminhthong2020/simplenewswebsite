@@ -15,7 +15,9 @@
 @functions{
 
 }
-
+<div style="color: red;">
+    @ViewData["minhthong"]
+</div>
 <div>
     @*<div><span asp-validation-for="@Model.catname" class="text-danger"></span></div><br />*@
     <br />
@@ -291,7 +293,7 @@
                     //let valCatstatus = document.getElementById('catstatus').value;
 
                     if (valCatname != "") {
-                        let my_url = `${window.location.origin}/api/category`
+                        let my_url = `${window.location.origin}/api/category/check1`
                         let jsonObject = {
                             mycatname: valCatname
                         }
@@ -318,35 +320,34 @@
                 } else if (_value.startsWith("d_")) {    // Xóa
                     //alert(`Xóa ${_value.substring(2)}`)
                     document.getElementById("myform").submit();
-                    
+
                 } else {  // Sửa
                     //alert(`Sửa ${_value}`)
                     let valCatname1 = document.getElementById('catname').value + "";
-                    //let valCatstatus = document.getElementById('catstatus').value;
-
+                    let _id = document.getElementById('catid').value + "";
+                    console.log(_id);
                     if (valCatname1 != "") {
-                        let my_url1 = `${window.location.origin}/api/category`
+                        let my_url1 = `${window.location.origin}/api/category/check2/${_id}`
                         let jsonObject1 = {
                             mycatname: valCatname1
                         }
-                        //$.ajax({
-                        //    method: "POST",
-                        //    url: my_url1,
-                        //    contentType: "application/json",
-                        //    //dataType: "json",  // bỏ thằng này để chạy
-                        //    data: JSON.stringify(jsonObject1)
-                        //})
-                        //    .done(function (msg) {
+                        $.ajax({
+                            method: "POST",
+                            url: my_url1,
+                            contentType: "application/json",
+                            //dataType: "json",  // bỏ thằng này để chạy, thằng này khiến jquery phải xét xem có return về json
+                            data: JSON.stringify(jsonObject1)
+                        })
+                            .done(function (msg) {
 
-                        //        if (msg == "exist") {
-                        //            alert('Danh mục đã tồn tại')
-                        //        } else {
-                        //            document.getElementById("myform").submit();
-                        //        }
-                        //    }).fail(function (jqXHR, textStatus) {
-                        //        alert("Request failed: " + textStatus);
-                        //    })
-                        document.getElementById("myform").submit();
+                                if (msg == "exist") {
+                                    alert('Danh mục đã tồn tại')
+                                } else {
+                                    document.getElementById("myform").submit();
+                                }
+                            }).fail(function (jqXHR, textStatus) {
+                                alert("Request failed: " + textStatus);
+                            })
                     } else {
                         document.getElementById('errorName').innerText = "Phải nhập tên danh mục nha"
                     }

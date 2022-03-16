@@ -25,16 +25,28 @@ namespace SimpleNewsWebsite.Areas.API.Controllers
         //    return result;
         //}
 
-        // POST api/<CategoryController>
+        // POST api/<CategoryController>/check1
         [HttpPost]
-        public string Post([FromBody] CategoryExist categoryExist)
+        [Route("check1")]
+        public string Check1([FromBody] CategoryExist categoryExist)
         {
             string result = SimpleNewsWebsite.Models.Category.checkCategoryExist(categoryExist.mycatname);
             return result;
             //return new JsonResult(object);
         }
 
+        // POST api/<CategoryController>/check2
+        [HttpPost]
+        [Route("check2/{id}")]
+        public string Check2(string id, [FromBody] CategoryExist categoryExist)
+        {
+            string result = SimpleNewsWebsite.Models.Category.checkCategoryExist2(id, categoryExist.mycatname);
+            return result;
+            //return new JsonResult(object);
+        }
+
         // GET api/<CategoryController>/id
+        // can use [Route("{id:int}")]
         [HttpGet("{id}")]
         public int Get(int id)
         {

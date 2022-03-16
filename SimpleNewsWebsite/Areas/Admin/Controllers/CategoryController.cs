@@ -49,6 +49,11 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                 ViewData["form1"] = TempData["form1"].ToString();
             }
 
+            if (TempData["minhthong"] != null)
+            {
+                ViewData["minhthong"] = TempData["minhthong"].ToString();
+            }
+
             if (TempData["result"] != null)
             {
                 ViewData["result"] = TempData["result"].ToString();
@@ -97,7 +102,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
 
                 TempData["result"] = result;
                 TempData["use"] = "start";  // add, edit, delete
-                TempData["form1"] = $" {categoryValidation.catname} and {categoryValidation.catstatus}";
+                //TempData["form1"] = $" {categoryValidation.catname} and {categoryValidation.catstatus}";
                 return RedirectToAction("Category");
             }
             else
@@ -133,13 +138,19 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 //ViewData["form1"] = $" {categoryValidation.catname} and {categoryValidation.catstatus}";
+                SimpleNewsWebsite.Models.Category c = SimpleNewsWebsite.Models.Category.getCategory(categoryValidation.catid);
+                int _status = categoryValidation.catstatus == true ? 1 : 0;
+                if(c.CatName != categoryValidation.catname || c.CatStatus != _status)
+                {
+                    string _username = HttpContext.Session.GetString("Username");
+                    int result = SimpleNewsWebsite.Models.Category.edit(categoryValidation.catid, categoryValidation.catname, categoryValidation.catstatus, _username);
 
-                string _username = HttpContext.Session.GetString("Username");
-                int result = SimpleNewsWebsite.Models.Category.edit(categoryValidation.catid, categoryValidation.catname, categoryValidation.catstatus, _username);
+                    TempData["result"] = result;
+                }
 
-                TempData["result"] = result;
+                
                 TempData["use"] = "start";  // add, edit, delete
-                TempData["form1"] = $"Edit {categoryValidation.catid}:{categoryValidation.catname} and {categoryValidation.catstatus}, result: {result}";
+                //TempData["form1"] = $"Edit {categoryValidation.catid}:{categoryValidation.catname} and {categoryValidation.catstatus}, result: {result}";
                 return RedirectToAction("Category");
             }
             else
@@ -161,6 +172,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                 var lstString = JsonSerializer.Serialize(lst);
 
                 TempData["errors"] = lstString;
+                TempData["minhthong"] = "kỳ vậy nè";
                 TempData["isError"] = "true";
                 TempData["use"] = "edit";
                 return RedirectToAction("Category");
@@ -180,7 +192,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
 
                 TempData["result"] = result;
                 TempData["use"] = "start";  // add, edit, delete
-                TempData["form1"] = $"Delete {categoryValidation.catid}:{categoryValidation.catname} and {categoryValidation.catstatus}, result: {result}";
+                //TempData["form1"] = $"Delete {categoryValidation.catid}:{categoryValidation.catname} and {categoryValidation.catstatus}, result: {result}";
                 return RedirectToAction("Category");
             }
             else
