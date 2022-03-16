@@ -135,3 +135,6 @@ D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\ru
 D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
 D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\HK2.2022\net\03032022\SimpleNewsWebsite\SimpleNewsWebsite\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

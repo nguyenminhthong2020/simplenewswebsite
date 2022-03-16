@@ -17,9 +17,14 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
     {
         public class CategoryValidation
         {
-            [Required(ErrorMessage = "Phải có tên danh mục")]
-            // [A-Z]{3} [A-Z]{3}\s+[\d.,]+
+            public string catid
+            {
+                get;
+                set;
+            }
 
+            // [A-Z]{3} [A-Z]{3}\s+[\d.,]+
+            [Required(ErrorMessage = "Phải nhập tên danh mục")]
             [RegularExpression(@"\s*([A-Za-z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]\s*){5,}", ErrorMessage = "tên phải có ít nhất 5 ký tự")]
             [StringLength(50, MinimumLength = 5, ErrorMessage = "Chiều dài từ 5 - 50 ký tự")]
             [Display(Name = "Catname")]
@@ -49,6 +54,20 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                 ViewData["result"] = TempData["result"].ToString();
             }
 
+            if (TempData["isError"] != null)
+            {
+                ViewBag.isError = 1;
+            }
+
+            if (TempData["use"] != null)
+            {
+                ViewData["use"] = TempData["use"].ToString();
+            }
+            else
+            {
+                ViewData["use"] = "start";
+            }
+
             if (TempData["errors"] != null)
             {
                 var listErrorString = TempData["errors"].ToString();
@@ -64,6 +83,8 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
             return View("Category", new CategoryValidation());
         }
 
+
+
         [HttpPost]
         public IActionResult Create(CategoryValidation categoryValidation)
         {
@@ -75,6 +96,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                 int result = SimpleNewsWebsite.Models.Category.add(categoryValidation.catname, categoryValidation.catstatus, _username);
 
                 TempData["result"] = result;
+                TempData["use"] = "start";  // add, edit, delete
                 TempData["form1"] = $" {categoryValidation.catname} and {categoryValidation.catstatus}";
                 return RedirectToAction("Category");
             }
@@ -97,6 +119,91 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                 var lstString = JsonSerializer.Serialize(lst);
 
                 TempData["errors"] = lstString;
+                TempData["isError"] = "true";
+                TempData["use"] = "add";
+                return RedirectToAction("Category");
+                //return View("Category", categoryValidation);
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(CategoryValidation categoryValidation)
+        {
+            if (ModelState.IsValid)
+            {
+                //ViewData["form1"] = $" {categoryValidation.catname} and {categoryValidation.catstatus}";
+
+                string _username = HttpContext.Session.GetString("Username");
+                int result = SimpleNewsWebsite.Models.Category.edit(categoryValidation.catid, categoryValidation.catname, categoryValidation.catstatus, _username);
+
+                TempData["result"] = result;
+                TempData["use"] = "start";  // add, edit, delete
+                TempData["form1"] = $"Edit {categoryValidation.catid}:{categoryValidation.catname} and {categoryValidation.catstatus}, result: {result}";
+                return RedirectToAction("Category");
+            }
+            else
+            {
+
+                List<MyError> lst = new List<MyError>();
+
+                foreach (var modelStateKey in ModelState.Keys)
+                {
+                    var modelStateVal = ModelState[modelStateKey];
+                    foreach (var error in modelStateVal.Errors)
+                    {
+                        var k = modelStateKey;
+                        var m = error.ErrorMessage;
+                        lst.Add(new MyError { key = k, message = m });
+                    }
+                }
+
+                var lstString = JsonSerializer.Serialize(lst);
+
+                TempData["errors"] = lstString;
+                TempData["isError"] = "true";
+                TempData["use"] = "edit";
+                return RedirectToAction("Category");
+                //return View("Category", categoryValidation);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(CategoryValidation categoryValidation)
+        {
+            if (ModelState.IsValid)
+            {
+                //ViewData["form1"] = $" {categoryValidation.catname} and {categoryValidation.catstatus}";
+
+                string _username = HttpContext.Session.GetString("Username");
+                int result = SimpleNewsWebsite.Models.Category.delete(categoryValidation.catid);
+
+                TempData["result"] = result;
+                TempData["use"] = "start";  // add, edit, delete
+                TempData["form1"] = $"Delete {categoryValidation.catid}:{categoryValidation.catname} and {categoryValidation.catstatus}, result: {result}";
+                return RedirectToAction("Category");
+            }
+            else
+            {
+
+                List<MyError> lst = new List<MyError>();
+
+                foreach (var modelStateKey in ModelState.Keys)
+                {
+                    var modelStateVal = ModelState[modelStateKey];
+                    foreach (var error in modelStateVal.Errors)
+                    {
+                        var k = modelStateKey;
+                        var m = error.ErrorMessage;
+                        lst.Add(new MyError { key = k, message = m });
+                    }
+                }
+
+                var lstString = JsonSerializer.Serialize(lst);
+
+                TempData["errors"] = lstString;
+                TempData["isError"] = "true";
+                TempData["use"] = "delete";
                 return RedirectToAction("Category");
                 //return View("Category", categoryValidation);
             }

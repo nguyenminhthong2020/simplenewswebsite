@@ -118,5 +118,43 @@ namespace SimpleNewsWebsite.Models
             if (result == 0) return 0;
             return result;
         }
+
+        public static int edit(string id, string name, bool status, string mem)
+        {
+            int _status = (status == true ? 1 : 0);
+            int _id = Convert.ToInt32(id);
+
+            SqlParameter[] paras = new SqlParameter[5];
+            paras[0] = new SqlParameter("@cat_name", name);
+            paras[1] = new SqlParameter("@cat_mem", mem);
+            paras[2] = new SqlParameter("@cat_edit", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            paras[3] = new SqlParameter("@cat_status", _status);
+            paras[4] = new SqlParameter("@cat_id", _id);
+
+            int result = DataProvider.edit(@"
+            UPDATE dbo.Category
+            SET Cat_Name = @cat_name, Cat_Mem = @cat_mem, Cat_Status = @cat_status, Cat_Edit = @cat_edit
+            WHERE Cat_ID = @cat_id
+            ", paras);
+
+            if (result == 0) return 0;
+            return result;
+        }
+
+        public static int delete(string id)
+        {
+            int _id = Convert.ToInt32(id);
+
+            SqlParameter[] paras = new SqlParameter[1];
+            paras[0] = new SqlParameter("@cat_id", _id);
+
+            int result = DataProvider.delete(@"
+            DELETE FROM dbo.Category
+            WHERE Cat_ID = @cat_id
+            ", paras);
+
+            if (result == 0) return 0;
+            return result;
+        }
     }
 }
