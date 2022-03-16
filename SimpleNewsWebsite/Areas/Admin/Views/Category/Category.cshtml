@@ -12,32 +12,49 @@
     var list_category = ViewData["list_category"] as List<SimpleNewsWebsite.Models.Category>;
 }
 
+@functions{
+
+}
+
 <div>
-    <p>
-        Trang category nè
-    </p>
+    @*<div><span asp-validation-for="@Model.catname" class="text-danger"></span></div><br />*@
     <br />
     Form1: &nbsp;@ViewData["form1"]
     <br />
-    <br />
-    Result (success): @ViewData["result"]
-    <br />
-    <form asp-area="Admin" asp-controller="Category" asp-action="Create" method="post" id="myform">
-        <div class="mb-4">
-            <input asp-for="@Model.catname" name="catname" type="text" id="catname" placeholder="Nhập tên danh mục">
-            &nbsp;<input asp-for="@Model.catstatus" name="catstatus" id="catstatus" class="form-check-input" type="checkbox">&nbsp;<span id="hienThi">Hiển thị</span>
-            &nbsp;<button type="submit" class="btn btn-primary" id="btnAdd">Thêm/cập nhật</button>
-            <div><span asp-validation-for="@Model.catname" class="text-danger"></span></div>
-        </div>
-    </form>
+    @*<p>
+            Trang category nè
+        </p>
+        <br />
+        Form1: &nbsp;@ViewData["form1"]
+        <br />
+        <br />
+        Result (success): @ViewData["result"]
+        <br />*@
+
+    @*<form asp-area="Admin" asp-controller="Category" asp-action="Create" method="post" id="myform">
+            <div class="mb-4">
+                <input asp-for="@Model.catname" name="catname" type="text" id="catname" placeholder="Nhập tên danh mục">
+                &nbsp;<input asp-for="@Model.catstatus" name="catstatus" id="catstatus" class="form-check-input" type="checkbox">&nbsp;<span id="hienThi">Hiển thị</span>
+                &nbsp;<button type="submit" class="btn btn-primary" id="btnAdd">Thêm/cập nhật</button>
+                <div><span asp-validation-for="@Model.catname" class="text-danger" id="errorName"></span></div>
+            </div>
+        </form>*@
     <h4>Danh sách danh mục</h4>
-    <form asp-controller="Post" asp-action="Category" method="post">
-        <div class="mb-3">
-            <input name="query" type="text" id="query" placeholder="Từ khóa">
-            &nbsp;<button type="submit" class="btn btn-primary">Tìm</button>
-        </div>
-    </form>
+    <div class="mb-3">
+        <input name="query" type="text" id="query" placeholder="Từ khóa" style="margin-bottom: 10px;">
+        &nbsp;<button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">Tìm</button>
+    </div>
     <br />
+    <div class="d-flex justify-content-end mt-1">
+        <button type="button"
+                class="btn btn-success px-4"
+                id="btnAdd"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-bs-whatever="mdo">
+            Thêm
+        </button>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -52,30 +69,118 @@
             {
                 <tr>
                     <th scope="row">@list_category[i].CatID</th>
-                    <td>@list_category[i].CatName</td>
-                    <td>@(list_category[i].CatStatus == 1 ? "Hiển thị" : "Ẩn")</td>
+                    <td id="td_@list_category[i].CatID">@list_category[i].CatName</td>
+                    <td id="std_@list_category[i].CatID">@(list_category[i].CatStatus == 1 ? "Hiển thị" : "Ẩn")</td>
                     <td>
-                        <button type="button" class="btn btn-warning btnEdit" id="@list_category[i].CatID">Sửa</button>
+                        <button data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                data-bs-whatever="mdo"
+                                type="button"
+                                class="btn btn-outline-primary btnEdit"
+                                id="@list_category[i].CatID">
+                            Sửa
+                        </button>
+                        &nbsp;
+                        <button data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                data-bs-whatever="mdo"
+                                type="button"
+                                class="btn btn-outline-danger btnDelete"
+                                id="d_@list_category[i].CatID">
+                            Xóa
+                        </button>
                     </td>
                 </tr>
             }
-            @*<tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Ẩn</td>
-                    <td>
-                        <button type="button" class="btn btn-warning">Sửa</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Hiển thị</td>
-                    <td><button type="button" class="btn btn-warning">Sửa</button></td>
-                </tr>*@
         </tbody>
     </table>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @{
+                var frmMyAction = "";
+                var btnValue = "";
+                var btnText = "Thêm/Cập nhật";
+
+                switch (ViewData["use"].ToString())
+                {
+                    case "start":
+                        frmMyAction = "Create";
+                        break;
+                    case "add":
+                        frmMyAction = "Create";
+                        btnValue = "add";
+                        btnText = "Thêm";
+                        break;
+                    case "edit":
+                        frmMyAction = "Edit";
+                        btnText = "Cập nhật";
+                        break;
+                    case "delete":
+                        frmMyAction = "Delete";
+                        btnValue = "_d";
+                        btnText = "Xóa";
+                        break;
+                    default:
+                        frmMyAction = "Create";
+                        break;
+                }
+            }
+            @*asp-area="Admin" asp-controller="Category" asp-action="@frmMyAction"*@
+            <form method="post" id="myform" action="">
+                <div>
+                    <input asp-for="@Model.catid" name="catid" type="hidden" id="catid" class="form-control w-100" />
+                    <div class="mb-3 mx-3">
+                        <label for="recipient-name" class="col-form-label">Tên</label>
+                        <input asp-for="@Model.catname" name="catname" type="text" id="catname" class="form-control w-100" />
+                        <div><span asp-validation-for="@Model.catname" class="text-danger" id="errorName"></span></div>
+                    </div>
+                    <div class="d-flex justify-content-center mb-4" id="divstatus">
+                        <div>
+                            <input asp-for="@Model.catstatus" name="catstatus" id="catstatus" class="form-check-input" type="checkbox" />&nbsp;&nbsp;<span id="hienThi">Hiển thị</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        @*@switch (ViewData["use"].ToString())
+                            {
+                                case "start":<button type="submit" class="btn btn-primary" id="btnAddEdit" value="">Thêm/Cập nhật</button>
+                                    break;
+                                case "add": <button type="submit" class="btn btn-primary" id="btnAddEdit" value="add">Thêm</button>
+                                    break;
+                                case "edit": <button type="submit" class="btn btn-primary" id="btnAddEdit" value="">Cập nhật</button>
+                                    break;
+                                case "delete": <button type="submit" class="btn btn-primary" id="btnAddEdit" value="d_">Xóa</button>
+                                    break;
+                                default: <button type="submit" class="btn btn-primary" id="btnAddEdit" value="">Thêm/Cập nhật</button>
+                                    break;
+                            }*@
+                        <button type="submit" class="btn btn-primary" id="btnAddEdit" value="@btnValue">@btnText</button>
+                    </div>
+                </div>
+                @*<div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>*@
+            </form>
+        </div>
+        @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>*@
+    </div>
+</div>
+@*</div>*@
+<br />
 
 @section CSS{
     <link href="~/admin/css/category.css" rel="stylesheet" />
@@ -85,35 +190,171 @@
     <script>
         $(document).ready(function () {
 
-            btns = document.getElementsByClassName("btnEdit");
-            for (let i = 0; i < btns.length; i++) {
-                btns[i].addEventListener("click", function () {
-                    alert(this.id);
-                });
+                                var myArray1 = [];
+            @{
+                @:myArray1.push(@ViewBag.isError);
+                                }
+
+            if ((myArray1[0]+"") == "1") {
+                $("#exampleModal").modal('show');
             }
 
-            document.getElementById("btnAdd").addEventListener('click', function (e) {
+            //btns = document.getElementsByClassName("btnEdit");
+            //for (let i = 0; i < btns.length; i++) {
+            //    btns[i].addEventListener("click", function () {
+            //        //alert(this.id);
+            //    });
+            //}
+
+            document.getElementById('exampleModal').addEventListener('show.bs.modal', function (event) {
+                document.getElementById('errorName').innerHTML = ""
+                // Button that triggered the modal
+                var button = event.relatedTarget;
+                let id = button.id + "";
+                console.log(id);
+
+                // Extract info from data-bs-* attributes
+                // var recipient = button.getAttribute('data-bs-whatever')
+                // If necessary, you could initiate an AJAX request here
+                // and then do the updating in a callback.
+                //
+                // Update the modal's content.
+                var modalTitle = exampleModal.querySelector('.modal-title')
+                var modalBodyInput = document.getElementById('catname')
+                var modalBodyInputCheckbox = document.getElementById('catstatus')
+                var modalBodyInputId = document.getElementById('catid')
+                var submitButton = document.getElementById('btnAddEdit')
+
+                var myArray = [];
+
+                 @foreach (var d in list_category)
+                 {
+                     @:myArray.push({id:"@d.CatID", name: "@d.CatName", status: "@d.CatStatus"});
+                 }
+
+
+                if (id == "btnAdd") {
+                    document.getElementById('myform').action = "/Admin/Category/Create";
+                    modalTitle.textContent = 'Thêm một danh mục';
+
+                    modalBodyInput.value = "";
+                    modalBodyInput.readOnly = false;
+                    modalBodyInputCheckbox.setAttribute("enabled", "");
+                    modalBodyInputCheckbox.removeAttribute("disabled", "");
+
+                    submitButton.innerText = 'Thêm'
+                    submitButton.value = 'add';
+                } else if (id.startsWith("d_") == true) {
+                    document.getElementById('myform').action = "/Admin/Category/Delete";
+                    modalTitle.textContent = 'Bạn có chắc muốn xóa danh mục id ' + id + " ?";
+                    console.log(`td_${id.substring(2)}`)
+                    modalBodyInput.value = document.getElementById(`td_${id.substring(2)}`).innerText;
+                    modalBodyInputId.value = id.substring(2);
+                    modalBodyInput.readOnly = true;
+                    modalBodyInputCheckbox.setAttribute("disabled", "");
+                    modalBodyInputCheckbox.removeAttribute("enabled", "");
+                    let isChecked = document.getElementById(`std_${id.substring(2)}`).innerText + "";
+                    if (isChecked == "Hiển thị") {
+                        modalBodyInputCheckbox.setAttribute("checked", "");
+                    } else {
+                        modalBodyInputCheckbox.removeAttribute("checked", "");
+                    }
+                    submitButton.innerText = 'Xóa'
+                    submitButton.value = id;
+                } else {
+                    document.getElementById('myform').action = "/Admin/Category/Edit";
+                    modalBodyInput.value = document.getElementById(`td_${id}`).innerText;
+                    modalBodyInputId.value = id;
+                    modalTitle.textContent = 'Danh mục có id ' + id;
+                    modalBodyInput.readOnly = false;
+                    modalBodyInputCheckbox.setAttribute("enabled", "");
+                    modalBodyInputCheckbox.removeAttribute("disabled", "");
+                    let isChecked = document.getElementById(`std_${id}`).innerText + "";
+                    if (isChecked == "Hiển thị") {
+                        modalBodyInputCheckbox.setAttribute("checked", "");
+                    } else {
+                        modalBodyInputCheckbox.removeAttribute("checked", "");
+                    }
+                    submitButton.innerText = 'Cập nhật'
+                    submitButton.value = id;
+
+                }
+
+            })
+
+            document.getElementById("btnAddEdit").addEventListener('click', function (e) {
                 e.preventDefault();
 
-                let valCatname = document.getElementById('catname').value;
-                //let valCatstatus = document.getElementById('catstatus').value;
+                let _value = this.value;
+                if (_value == 'add') {   // Thêm
+                    let valCatname = document.getElementById('catname').value + "";
+                    //let valCatstatus = document.getElementById('catstatus').value;
 
-                let my_url = `${window.location.origin}/api/category/${valCatname}`
-                $.ajax({
-                    method: "GET",
-                    url: my_url,
-                    data: {}
-                })
-                    .done(function (msg) {
-                        if (msg == "exist") {
-                            alert('Danh mục đã tồn tại')
-                        } else {
-                            document.getElementById("myform").submit();
+                    if (valCatname != "") {
+                        let my_url = `${window.location.origin}/api/category`
+                        let jsonObject = {
+                            mycatname: valCatname
                         }
-                    }).fail(function (jqXHR, textStatus) {
-                        alert("Request failed: " + textStatus);
-                    })
+                        $.ajax({
+                            method: "POST",
+                            url: my_url,
+                            contentType: "application/json",
+                            //dataType: "json",  // bỏ thằng này để chạy
+                            data: JSON.stringify(jsonObject)
+                        })
+                            .done(function (msg) {
+
+                                if (msg == "exist") {
+                                    alert('Danh mục đã tồn tại')
+                                } else {
+                                    document.getElementById("myform").submit();
+                                }
+                            }).fail(function (jqXHR, textStatus) {
+                                alert("Request failed: " + textStatus);
+                            })
+                    } else {
+                        document.getElementById('errorName').innerText = "Phải nhập tên danh mục nha"
+                    }
+                } else if (_value.startsWith("d_")) {    // Xóa
+                    //alert(`Xóa ${_value.substring(2)}`)
+                    document.getElementById("myform").submit();
+                    
+                } else {  // Sửa
+                    //alert(`Sửa ${_value}`)
+                    let valCatname1 = document.getElementById('catname').value + "";
+                    //let valCatstatus = document.getElementById('catstatus').value;
+
+                    if (valCatname1 != "") {
+                        let my_url1 = `${window.location.origin}/api/category`
+                        let jsonObject1 = {
+                            mycatname: valCatname1
+                        }
+                        //$.ajax({
+                        //    method: "POST",
+                        //    url: my_url1,
+                        //    contentType: "application/json",
+                        //    //dataType: "json",  // bỏ thằng này để chạy
+                        //    data: JSON.stringify(jsonObject1)
+                        //})
+                        //    .done(function (msg) {
+
+                        //        if (msg == "exist") {
+                        //            alert('Danh mục đã tồn tại')
+                        //        } else {
+                        //            document.getElementById("myform").submit();
+                        //        }
+                        //    }).fail(function (jqXHR, textStatus) {
+                        //        alert("Request failed: " + textStatus);
+                        //    })
+                        document.getElementById("myform").submit();
+                    } else {
+                        document.getElementById('errorName').innerText = "Phải nhập tên danh mục nha"
+                    }
+                }
+
             })
+
+
         });
 
 

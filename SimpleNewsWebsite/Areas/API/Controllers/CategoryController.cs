@@ -4,19 +4,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json.Linq;
 
 namespace SimpleNewsWebsite.Areas.API.Controllers
 {
+    public class CategoryExist
+    {
+        public string mycatname { get; set; }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        // GET api/<CategoryController>/name
-        [HttpGet("{name}")]
-        public string Get(string name)
+        //public string Get(string name)
+        //{
+        //    string result = SimpleNewsWebsite.Models.Category.checkCategoryExist(name);
+        //    return result;
+        //}
+
+        // POST api/<CategoryController>
+        [HttpPost]
+        public string Post([FromBody] CategoryExist categoryExist)
         {
-            string result = SimpleNewsWebsite.Models.Category.checkCategoryExist(name);
+            string result = SimpleNewsWebsite.Models.Category.checkCategoryExist(categoryExist.mycatname);
             return result;
+            //return new JsonResult(object);
         }
+
+        // GET api/<CategoryController>/id
+        [HttpGet("{id}")]
+        public int Get(int id)
+        {
+            return id;
+        }
+
+
     }
 }

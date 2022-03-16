@@ -81,5 +81,65 @@ namespace SimpleNewsWebsite.Models
                 return 0;
             }
         }
+
+
+        public static int edit(string iQuery, SqlParameter[] iParas)
+        {
+            SqlConnection con = connectDB();
+
+            if (con == null)
+            {
+                return 0;
+            }
+
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter();
+                SqlCommand command = new SqlCommand(iQuery, con);
+
+                if (iParas != null)
+                {
+                    command.Parameters.AddRange(iParas);
+
+                }
+                da.UpdateCommand = command;
+                int result = command.ExecuteNonQuery();
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+
+        public static int delete(string iQuery, SqlParameter[] iParas)
+        {
+            SqlConnection con = connectDB();
+
+            if (con == null)
+            {
+                return 0;
+            }
+
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter();
+                SqlCommand command = new SqlCommand(iQuery, con);
+
+                if (iParas != null)
+                {
+                    command.Parameters.AddRange(iParas);
+
+                }
+                da.DeleteCommand = command;
+                int result = command.ExecuteNonQuery();
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }
