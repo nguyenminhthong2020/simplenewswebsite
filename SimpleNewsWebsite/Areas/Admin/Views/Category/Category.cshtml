@@ -28,22 +28,17 @@
     Form1: &nbsp;@ViewData["form1"]
     <br />
     @*<p>
-            Trang category nè
-        </p>
-        <br />
-        Form1: &nbsp;@ViewData["form1"]
-        <br />
-        <br />
-        Result (success): @ViewData["result"]
-        <br />*@
+        ex03
+        Trang category nè
+         </p>
+         <br />
+         Form1: &nbsp;@ViewData["form1"]
+         <br />
+         <br />
+         Result : @ViewData["result"]
+         <br />*@
 
     @*<form asp-area="Admin" asp-controller="Category" asp-action="Create" method="post" id="myform">
-            <div class="mb-4">
-                <input asp-for="@Model.catname" name="catname" type="text" id="catname" placeholder="Nhập tên danh mục">
-                &nbsp;<input asp-for="@Model.catstatus" name="catstatus" id="catstatus" class="form-check-input" type="checkbox">&nbsp;<span id="hienThi">Hiển thị</span>
-                &nbsp;<button type="submit" class="btn btn-primary" id="btnAdd">Thêm/cập nhật</button>
-                <div><span asp-validation-for="@Model.catname" class="text-danger" id="errorName"></span></div>
-            </div>
         </form>*@
     <h4>Danh sách danh mục</h4>
     <div class="mb-3">
@@ -71,33 +66,6 @@
             </tr>
         </thead>
         <tbody>
-            @*@for (int i = 0; i < list_category.Count; i++)
-            {
-                <tr>
-                    <th scope="row">@list_category[i].CatID</th>
-                    <td id="td_@list_category[i].CatID">@list_category[i].CatName</td>
-                    <td id="std_@list_category[i].CatID">@(list_category[i].CatStatus == 1 ? "Hiển thị" : "Ẩn")</td>
-                    <td>
-                        <button data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                data-bs-whatever="mdo"
-                                type="button"
-                                class="btn btn-outline-primary btnEdit"
-                                id="@list_category[i].CatID">
-                            Sửa
-                        </button>
-                        &nbsp;
-                        <button data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                data-bs-whatever="mdo"
-                                type="button"
-                                class="btn btn-outline-danger btnDelete"
-                                id="d_@list_category[i].CatID">
-                            Xóa
-                        </button>
-                    </td>
-                </tr>
-            }*@
         </tbody>
     </table>
 </div>
@@ -114,19 +82,36 @@
                 <option value="3">3</option>*@
         </select>
     </div>
+    <script>
+        function handlePrevious() {
+            var _currentPage = document.getElementById('currentPage').innerText + '';
+            var prevPage = parseInt(_currentPage) - 1;
+
+            var _search = document.getElementById("search").value;
+            loadData(@ViewBag.PerPage, prevPage, _search);
+        }
+
+        function handleNext() {
+            var _currentPage = document.getElementById('currentPage').innerText + '';
+            var nextPage = parseInt(_currentPage) + 1;
+
+            var _search = document.getElementById("search").value;
+            loadData(@ViewBag.PerPage, nextPage, _search);
+        }
+    </script>
     <div class="pt-3">
         <nav aria-label="..." class="h-100">
             <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trước</a>
+                <li class="page-item" id="prev">
+                    <a class="page-link" href="javascript:handlePrevious();">Trước</a>
                 </li>
-                @*<li class="page-item"><a class="page-link" href="#">1</a></li>*@
+                @*<li class="page-item"><a class="page-link">1</a></li>*@
                 <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">1</a>
+                    <a class="page-link" href="#" id="currentPage">1</a>
                 </li>
                 @*<li class="page-item"><a class="page-link" href="#">3</a></li>*@
-                <li class="page-item">
-                    <a class="page-link" href="/admin/category/category/2">Sau</a>
+                <li class="page-item" id="next">
+                    <a class="page-link" href="javascript:handleNext();">Sau</a>
                 </li>
             </ul>
         </nav>
@@ -136,7 +121,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Message</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             @{
@@ -200,86 +185,39 @@
 }
 
 @section JS{
+    <script src="~/admin/js/category.js"></script>
     <script>
         $(document).ready(function () {
 
-            //var tableRef = document.getElementById('tableCategory').getElementsByTagName('tbody')[0];
-            //var newRow = tableRef.insertRow(tableRef.rows.length);
-            //for (let i = 0; i < 4; i++)
-            //{
-            //    newRow.innerHTML = "";
-            //}
-
-            function loadData(page, search) {
-                $.ajax({
-                    method: "GET",
-                    url: `${window.location.origin}/api/category/getlist?page=${page}&search=${search}`,
-                    contentType: "application/json",
-                    dataType: "json",
-                })
-                    .done(function (msg) {
-                        //console.log(msg);
-
-                        if (msg != undefined) {
-                            var tableRef = document.getElementById('tableCategory').getElementsByTagName('tbody')[0];
-                            tableRef.innerHTML = "";
-                            for (let i = 0; i < msg.length; i++) {
-                                var newRow = tableRef.insertRow(tableRef.rows.length);
-                                newRow.innerHTML = `<tr>
-                    <th scope="row">${msg[i].catID}</th>
-                    <td id="td_${msg[i].catID}">${msg[i].catName}</td>
-                    <td id="std_${msg[i].catID}">${msg[i].catStatus == 1 ? "Hiển thị" : "Ẩn"}</td>
-                    <td>
-                        <i class="bi bi-pencil-square btnEdit"
-                           data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                data-bs-whatever="mdo"
-                                type="button"
-                                style="color: blue; margin-right: 20px; transform: scale(1.5, 1.5);"
-                                id="${msg[i].catID}"
-                         >
-                        </i>
-                        &nbsp;
-                         <i class="bi bi-trash btnDelete"
-                             data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                data-bs-whatever="mdo"
-                                type="button"
-                                style="color: red; transform: scale(1.5, 1.5);"
-                                id="d_${msg[i].catID}">
-                         </i>
-                    </td>
-                </tr>`;
-                            }
-
-
-                            var countPage = msg.length / @ViewBag.PerPage + (msg.length % @ViewBag.PerPage > 0 ? 1 : 0);
-                            var _select = ``;
-                                for (let i = 1; i <= countPage; i++)
-                                {
-                                    _select += `<option value="${i}">${i}</option>`;
-                            }
-                            document.getElementById('pages').innerHTML = "";
-                            document.getElementById('pages').innerHTML = _select;
-                        }
-
-                    }).fail(function (jqXHR, textStatus) {
-                        alert("Request failed: " + textStatus);
-                    })
-            }
-            loadData(1, "");
+            loadData(@ViewBag.PerPage, 1, "");
 
             document.getElementById("btnSearch").addEventListener('click', function (e) {
                 var _search = document.getElementById("search").value;
-                loadData(1, _search);
+                loadData(@ViewBag.PerPage, 1, _search);
             })
 
             document.getElementById("search").addEventListener('keyup', function (e) {
                 if (e.key == "Enter" || e.keyCode == 13) {
                     var _search = document.getElementById("search").value;
-                    loadData(1, _search);
+                    loadData(@ViewBag.PerPage, 1, _search);
                 }
             })
+
+            document.getElementById("search").addEventListener('change', function (e) {
+                var _search = document.getElementById("search").value;
+                if (_search == "") {
+                    loadData(@ViewBag.PerPage, 1, "");
+                }
+            })
+
+            document.getElementById("pages").addEventListener('change', function (e) {
+                var _page = document.getElementById("pages").value;
+
+                var _pageInt = parseInt(_page);
+                var _search = document.getElementById("search").value;
+                loadData(@ViewBag.PerPage, _pageInt, _search);
+            })
+
 
                                 var myArray1 = [];
             @{
