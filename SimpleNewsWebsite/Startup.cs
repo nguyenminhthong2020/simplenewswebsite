@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using SimpleNewsWebsite.Middlewares;
 using System;
 using System.Collections.Generic;
@@ -21,7 +25,28 @@ namespace SimpleNewsWebsite
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
+            //services.AddControllersWithViews(options =>
+            //{
+            //    options.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
+            //});
             services.AddControllersWithViews();
+
+            services.AddControllersWithViews().AddNewtonsoftJson();
+
+            //services.AddControllers().AddNewtonsoftJson();
+            //services.AddMvc(options =>
+            //{
+            //    options.AllowEmptyInputInBodyModelBinding = true;
+            //    foreach (var formatter in options.InputFormatters)
+            //    {
+            //        if (formatter.GetType() == typeof(SystemTextJsonInputFormatter))
+            //            ((SystemTextJsonInputFormatter)formatter).SupportedMediaTypes.Add(
+            //            Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse("text/plain"));
+            //    }
+            //}).AddJsonOptions(options =>
+            //{
+            //    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +75,19 @@ namespace SimpleNewsWebsite
                 //);
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=home}/{action=index}/{id?}");
             });
+        }
+
+        private static NewtonsoftJsonPatchInputFormatter GetJsonPatchInputFormatter()
+        {
+            var builder = new ServiceCollection()
+                .AddLogging().AddMvc().AddNewtonsoftJson().Services.BuildServiceProvider();
+
+            return builder
+                .GetRequiredService<IOptions<MvcOptions>>()
+                .Value
+                .InputFormatters
+                .OfType<NewtonsoftJsonPatchInputFormatter>()
+                .First();
         }
     }
 }
