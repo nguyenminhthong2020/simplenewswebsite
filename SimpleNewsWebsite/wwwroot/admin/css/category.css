@@ -30,3 +30,33 @@ input[type=text]{
         width: 100%;
     }
 }
+
+select {
+    width: 50px;
+    border: 1px solid #dee2e6;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { /*safari and chrome*/
+    select {
+        height: 2.25rem;
+        line-height: 2.25rem;
+    }
+}
+
+select::-moz-focus-inner { /*Remove button padding in FF*/
+    border: 0;
+    padding: 0;
+}
+
+@-moz-document url-prefix() { /* targets Firefox only */
+    select {
+        padding: 2.25rem 0 !important;
+    }
+}
+
+@media screen\0 { /* IE Hacks: targets IE 8, 9 and 10 */
+    select {
+        height: 2.25rem;
+        line-height: 2.25rem;
+    }
+}

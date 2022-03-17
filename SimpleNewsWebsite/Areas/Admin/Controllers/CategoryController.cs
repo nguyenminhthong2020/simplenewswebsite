@@ -25,7 +25,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
 
             // [A-Z]{3} [A-Z]{3}\s+[\d.,]+
             [Required(ErrorMessage = "Phải nhập tên danh mục")]
-            [RegularExpression(@"\s*([A-Za-z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]\s*){5,}", ErrorMessage = "tên phải có ít nhất 5 ký tự")]
+            [RegularExpression(@"\s*([A-Za-z0-9ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéếêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]\s*){5,}", ErrorMessage = "tên phải có ít nhất 5 ký tự")]
             [StringLength(50, MinimumLength = 5, ErrorMessage = "Chiều dài từ 5 - 50 ký tự")]
             [Display(Name = "Catname")]
             public string catname
@@ -42,8 +42,59 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
             }
         }
 
+        //public IActionResult Category()
+        //{
+        //    if (TempData["form1"] != null)
+        //    {
+        //        ViewData["form1"] = TempData["form1"].ToString();
+        //    }
+
+        //    if (TempData["minhthong"] != null)
+        //    {
+        //        ViewData["minhthong"] = TempData["minhthong"].ToString();
+        //    }
+
+        //    if (TempData["result"] != null)
+        //    {
+        //        ViewData["result"] = TempData["result"].ToString();
+        //    }
+
+        //    if (TempData["isError"] != null)
+        //    {
+        //        ViewBag.isError = 1;
+        //    }
+
+        //    if (TempData["use"] != null)
+        //    {
+        //        ViewData["use"] = TempData["use"].ToString();
+        //    }
+        //    else
+        //    {
+        //        ViewData["use"] = "start";
+        //    }
+
+        //    if (TempData["errors"] != null)
+        //    {
+        //        var listErrorString = TempData["errors"].ToString();
+        //        var listError = JsonSerializer.Deserialize<List<MyError>>(listErrorString);
+        //        foreach (var item in listError)  //nhấn foreach + tab
+        //        {
+        //            ModelState.AddModelError(item.key, item.message);
+        //        }
+        //    }
+
+        //    ViewData["list_category"] = SimpleNewsWebsite.Models.Category.getAllCategory();
+
+        //    return View("Category", new CategoryValidation());
+        //}
+
+        public const int perPage = 5;
+
+        //[HttpGet]
         public IActionResult Category()
         {
+            ViewBag.PerPage = perPage;
+
             if (TempData["form1"] != null)
             {
                 ViewData["form1"] = TempData["form1"].ToString();
@@ -140,7 +191,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                 //ViewData["form1"] = $" {categoryValidation.catname} and {categoryValidation.catstatus}";
                 SimpleNewsWebsite.Models.Category c = SimpleNewsWebsite.Models.Category.getCategory(categoryValidation.catid);
                 int _status = categoryValidation.catstatus == true ? 1 : 0;
-                if(c.CatName != categoryValidation.catname || c.CatStatus != _status)
+                if (c.CatName != categoryValidation.catname || c.CatStatus != _status)
                 {
                     string _username = HttpContext.Session.GetString("Username");
                     int result = SimpleNewsWebsite.Models.Category.edit(categoryValidation.catid, categoryValidation.catname, categoryValidation.catstatus, _username);
@@ -148,7 +199,7 @@ namespace SimpleNewsWebsite.Areas.Admin.Controllers
                     TempData["result"] = result;
                 }
 
-                
+
                 TempData["use"] = "start";  // add, edit, delete
                 //TempData["form1"] = $"Edit {categoryValidation.catid}:{categoryValidation.catname} and {categoryValidation.catstatus}, result: {result}";
                 return RedirectToAction("Category");

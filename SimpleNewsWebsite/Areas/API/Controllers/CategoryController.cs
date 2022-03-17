@@ -35,6 +35,14 @@ namespace SimpleNewsWebsite.Areas.API.Controllers
             //return new JsonResult(object);
         }
 
+        [HttpGet]
+        [Route("getlist")]
+        public dynamic getListCategory(int page, string search)
+        {
+            List<SimpleNewsWebsite.Models.Category> lst = SimpleNewsWebsite.Models.Category.getAllCategory2(search);
+            return lst;
+        }
+
         // POST api/<CategoryController>/check2
         [HttpPost]
         [Route("check2/{id}")]

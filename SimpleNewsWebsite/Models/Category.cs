@@ -75,6 +75,44 @@ namespace SimpleNewsWebsite.Models
             return lst;
         }
 
+        public static List<Category> getAllCategory2(string search)
+        {
+            SqlParameter[] paras = new SqlParameter[1];
+            paras[0] = new SqlParameter("@query", $"%{search}%");
+
+            DataTable dt = DataProvider.getList(@"
+            SELECT [Cat_ID]
+                  ,[Cat_Name]
+                  ,[Cat_Mem]
+                  ,[Cat_Cre]
+                  ,[Cat_Edit]
+                  ,[Cat_Status]
+              FROM [db_news].[dbo].[Category]
+              WHERE [Cat_Name] LIKE @query   
+            ", paras);
+
+            //var date1 = new DateTime(2008, 5, 1, 8, 30, 52);
+            //var date2 = new DateTime(2009, 5, 1, 8, 30, 52);
+            //List<Category> lst = new List<Category>() {
+            //    new Category(1, "name1", "admin", null, null, 1),
+            //    new Category(2, "name2", "admin", date1, date2, 1)
+            //};
+            if (dt == null) return null;
+
+            List<Category> lst = new List<Category>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Category cat = new Category(Convert.ToInt32(dr["Cat_ID"]),
+                                            dr["Cat_Name"].ToString(), dr["Cat_Mem"].ToString(),
+                                            dr["Cat_Cre"] == null ? Convert.ToDateTime(dr["Cat_Cre"]) : null,
+                                            dr["Cat_Edit"] == null ? Convert.ToDateTime(dr["Cat_Edit"]) : null,
+                                            Convert.ToInt32(dr["Cat_Status"]));
+
+                lst.Add(cat);
+            }
+            return lst;
+        }
+
 
         public static Category getCategory(string id)
         {
