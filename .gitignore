@@ -1,3 +1,52 @@
+# don't ignore myself!
+!.gitignore
+ 
+# Visual Studio build objects
+bin/
+csx/
+obj/
+rcf/
+
+###################
+# compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.pdb
+*.dll.config
+*.cache
+*.suo
+# Include dlls if they’re in the NuGet packages directory
+!/packages/*/lib/*.dll
+!/packages/*/lib/*/*.dll
+# Include dlls if they're in the CommonReferences directory
+!*CommonReferences/*.dll
+###############
+# Directories #
+###############
+bin/
+obj/
+
+SimpleNewsWebsite/obj/Debug
+SimpleNewsWebsite/obj/project.nuget.cache
+SimpleNewsWebsite/obj/
+SimpleNewsWebsite/bin/Debug/net5.0
+
+Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+[Bb]in/
+[Oo]bj/
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!?*.[Cc]ache/
+
+
 */**/bin/Debug
 */**/bin/Release
 */**/obj/Debug
@@ -6,3 +55,4 @@
 *.pdb
 *.manifest
 *.cache
+
