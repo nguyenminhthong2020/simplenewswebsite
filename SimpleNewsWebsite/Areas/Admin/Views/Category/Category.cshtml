@@ -28,22 +28,16 @@
     Form1: &nbsp;@ViewData["form1"]
     <br />
     @*<p>
-            Trang category nè
-        </p>
-        <br />
-        Form1: &nbsp;@ViewData["form1"]
-        <br />
-        <br />
-        Result (success): @ViewData["result"]
-        <br />*@
+        Trang category nè
+         </p>
+         <br />
+         Form1: &nbsp;@ViewData["form1"]
+         <br />
+         <br />
+         Result : @ViewData["result"]
+         <br />*@
 
     @*<form asp-area="Admin" asp-controller="Category" asp-action="Create" method="post" id="myform">
-            <div class="mb-4">
-                <input asp-for="@Model.catname" name="catname" type="text" id="catname" placeholder="Nhập tên danh mục">
-                &nbsp;<input asp-for="@Model.catstatus" name="catstatus" id="catstatus" class="form-check-input" type="checkbox">&nbsp;<span id="hienThi">Hiển thị</span>
-                &nbsp;<button type="submit" class="btn btn-primary" id="btnAdd">Thêm/cập nhật</button>
-                <div><span asp-validation-for="@Model.catname" class="text-danger" id="errorName"></span></div>
-            </div>
         </form>*@
     <h4>Danh sách danh mục</h4>
     <div class="mb-3">
@@ -71,33 +65,6 @@
             </tr>
         </thead>
         <tbody>
-            @*@for (int i = 0; i < list_category.Count; i++)
-                {
-                    <tr>
-                        <th scope="row">@list_category[i].CatID</th>
-                        <td id="td_@list_category[i].CatID">@list_category[i].CatName</td>
-                        <td id="std_@list_category[i].CatID">@(list_category[i].CatStatus == 1 ? "Hiển thị" : "Ẩn")</td>
-                        <td>
-                            <button data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"
-                                    data-bs-whatever="mdo"
-                                    type="button"
-                                    class="btn btn-outline-primary btnEdit"
-                                    id="@list_category[i].CatID">
-                                Sửa
-                            </button>
-                            &nbsp;
-                            <button data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"
-                                    data-bs-whatever="mdo"
-                                    type="button"
-                                    class="btn btn-outline-danger btnDelete"
-                                    id="d_@list_category[i].CatID">
-                                Xóa
-                            </button>
-                        </td>
-                    </tr>
-                }*@
         </tbody>
     </table>
 </div>
