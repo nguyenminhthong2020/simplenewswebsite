@@ -3,6 +3,7 @@
     https://learningprogramming.net/net/asp-net-core-mvc-5/use-session-in-asp-net-core-mvc-5/
 *@
 
+@using System.Text
 @model SimpleNewsWebsite.Areas.Admin.Controllers.CategoryController.CategoryValidation
 
 @{
@@ -10,12 +11,17 @@
     ViewBag.TextLogin = "Admin đang đăng nhập";
     ViewBag.PageCode = 2;
     var list_category = ViewData["list_category"] as List<SimpleNewsWebsite.Models.Category>;
+
+
+    ViewBag.CountPage = list_category.Count / ViewBag.PerPage + (list_category.Count % ViewBag.PerPage > 0 ? 1 : 0);
 }
 
 @functions{
 
 }
-
+<div style="color: red;">
+    @ViewData["pageIndex"]
+</div>
 <div>
     @*<div><span asp-validation-for="@Model.catname" class="text-danger"></span></div><br />*@
     <br />
@@ -41,8 +47,8 @@
         </form>*@
     <h4>Danh sách danh mục</h4>
     <div class="mb-3">
-        <input name="query" type="text" id="query" placeholder="Từ khóa" style="margin-bottom: 10px;">
-        &nbsp;<button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">Tìm</button>
+        <input name="search" type="text" id="search" placeholder="Từ khóa" style="margin-bottom: 10px;">
+        &nbsp;<button type="submit" class="btn btn-primary" style="margin-bottom: 10px;" id="btnSearch">Tìm</button>
     </div>
     <br />
     <div class="d-flex justify-content-end mt-1">
@@ -55,7 +61,7 @@
             Thêm
         </button>
     </div>
-    <table class="table">
+    <table class="table" id="tableCategory">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -65,7 +71,7 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < list_category.Count; i++)
+            @*@for (int i = 0; i < list_category.Count; i++)
             {
                 <tr>
                     <th scope="row">@list_category[i].CatID</th>
@@ -91,9 +97,40 @@
                         </button>
                     </td>
                 </tr>
-            }
+            }*@
         </tbody>
     </table>
+</div>
+<div class="d-flex justify-content-end align-items-center" style="margin-bottom: 25px; margin-top: 30px;">
+    <div class="me-3">
+        Chọn trang:&nbsp;
+        <select name="pages" id="pages">
+            @for (int i = 1; i <= ViewBag.CountPage; i++)
+            {
+                <option value="@i">@i</option>
+            }
+            @*<option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>*@
+        </select>
+    </div>
+    <div class="pt-3">
+        <nav aria-label="..." class="h-100">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trước</a>
+                </li>
+                @*<li class="page-item"><a class="page-link" href="#">1</a></li>*@
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                @*<li class="page-item"><a class="page-link" href="#">3</a></li>*@
+                <li class="page-item">
+                    <a class="page-link" href="/admin/category/category/2">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -131,7 +168,6 @@
                         break;
                 }
             }
-            @*asp-area="Admin" asp-controller="Category" asp-action="@frmMyAction"*@
             <form method="post" id="myform" action="">
                 <div>
                     <input asp-for="@Model.catid" name="catid" type="hidden" id="catid" class="form-control w-100" />
@@ -147,30 +183,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        @*@switch (ViewData["use"].ToString())
-                            {
-                                case "start":<button type="submit" class="btn btn-primary" id="btnAddEdit" value="">Thêm/Cập nhật</button>
-                                    break;
-                                case "add": <button type="submit" class="btn btn-primary" id="btnAddEdit" value="add">Thêm</button>
-                                    break;
-                                case "edit": <button type="submit" class="btn btn-primary" id="btnAddEdit" value="">Cập nhật</button>
-                                    break;
-                                case "delete": <button type="submit" class="btn btn-primary" id="btnAddEdit" value="d_">Xóa</button>
-                                    break;
-                                default: <button type="submit" class="btn btn-primary" id="btnAddEdit" value="">Thêm/Cập nhật</button>
-                                    break;
-                            }*@
                         <button type="submit" class="btn btn-primary" id="btnAddEdit" value="@btnValue">@btnText</button>
                     </div>
                 </div>
-                @*<div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>*@
             </form>
         </div>
         @*<div class="modal-footer">
@@ -179,8 +194,6 @@
             </div>*@
     </div>
 </div>
-@*</div>*@
-<br />
 
 @section CSS{
     <link href="~/admin/css/category.css" rel="stylesheet" />
@@ -189,6 +202,84 @@
 @section JS{
     <script>
         $(document).ready(function () {
+
+            //var tableRef = document.getElementById('tableCategory').getElementsByTagName('tbody')[0];
+            //var newRow = tableRef.insertRow(tableRef.rows.length);
+            //for (let i = 0; i < 4; i++)
+            //{
+            //    newRow.innerHTML = "";
+            //}
+
+            function loadData(page, search) {
+                $.ajax({
+                    method: "GET",
+                    url: `${window.location.origin}/api/category/getlist?page=${page}&search=${search}`,
+                    contentType: "application/json",
+                    dataType: "json",
+                })
+                    .done(function (msg) {
+                        //console.log(msg);
+
+                        if (msg != undefined) {
+                            var tableRef = document.getElementById('tableCategory').getElementsByTagName('tbody')[0];
+                            tableRef.innerHTML = "";
+                            for (let i = 0; i < msg.length; i++) {
+                                var newRow = tableRef.insertRow(tableRef.rows.length);
+                                newRow.innerHTML = `<tr>
+                    <th scope="row">${msg[i].catID}</th>
+                    <td id="td_${msg[i].catID}">${msg[i].catName}</td>
+                    <td id="std_${msg[i].catID}">${msg[i].catStatus == 1 ? "Hiển thị" : "Ẩn"}</td>
+                    <td>
+                        <i class="bi bi-pencil-square btnEdit"
+                           data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                data-bs-whatever="mdo"
+                                type="button"
+                                style="color: blue; margin-right: 20px; transform: scale(1.5, 1.5);"
+                                id="${msg[i].catID}"
+                         >
+                        </i>
+                        &nbsp;
+                         <i class="bi bi-trash btnDelete"
+                             data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                data-bs-whatever="mdo"
+                                type="button"
+                                style="color: red; transform: scale(1.5, 1.5);"
+                                id="d_${msg[i].catID}">
+                         </i>
+                    </td>
+                </tr>`;
+                            }
+
+
+                            var countPage = msg.length / @ViewBag.PerPage + (msg.length % @ViewBag.PerPage > 0 ? 1 : 0);
+                            var _select = ``;
+                                for (let i = 1; i <= countPage; i++)
+                                {
+                                    _select += `<option value="${i}">${i}</option>`;
+                            }
+                            document.getElementById('pages').innerHTML = "";
+                            document.getElementById('pages').innerHTML = _select;
+                        }
+
+                    }).fail(function (jqXHR, textStatus) {
+                        alert("Request failed: " + textStatus);
+                    })
+            }
+            loadData(1, "");
+
+            document.getElementById("btnSearch").addEventListener('click', function (e) {
+                var _search = document.getElementById("search").value;
+                loadData(1, _search);
+            })
+
+            document.getElementById("search").addEventListener('keyup', function (e) {
+                if (e.key == "Enter" || e.keyCode == 13) {
+                    var _search = document.getElementById("search").value;
+                    loadData(1, _search);
+                }
+            })
 
                                 var myArray1 = [];
             @{
@@ -291,7 +382,7 @@
                     //let valCatstatus = document.getElementById('catstatus').value;
 
                     if (valCatname != "") {
-                        let my_url = `${window.location.origin}/api/category`
+                        let my_url = `${window.location.origin}/api/category/check1`
                         let jsonObject = {
                             mycatname: valCatname
                         }
@@ -318,35 +409,34 @@
                 } else if (_value.startsWith("d_")) {    // Xóa
                     //alert(`Xóa ${_value.substring(2)}`)
                     document.getElementById("myform").submit();
-                    
+
                 } else {  // Sửa
                     //alert(`Sửa ${_value}`)
                     let valCatname1 = document.getElementById('catname').value + "";
-                    //let valCatstatus = document.getElementById('catstatus').value;
-
+                    let _id = document.getElementById('catid').value + "";
+                    console.log(_id);
                     if (valCatname1 != "") {
-                        let my_url1 = `${window.location.origin}/api/category`
+                        let my_url1 = `${window.location.origin}/api/category/check2/${_id}`
                         let jsonObject1 = {
                             mycatname: valCatname1
                         }
-                        //$.ajax({
-                        //    method: "POST",
-                        //    url: my_url1,
-                        //    contentType: "application/json",
-                        //    //dataType: "json",  // bỏ thằng này để chạy
-                        //    data: JSON.stringify(jsonObject1)
-                        //})
-                        //    .done(function (msg) {
+                        $.ajax({
+                            method: "POST",
+                            url: my_url1,
+                            contentType: "application/json",
+                            //dataType: "json",  // bỏ thằng này để chạy, thằng này khiến jquery phải xét xem có return về json
+                            data: JSON.stringify(jsonObject1)
+                        })
+                            .done(function (msg) {
 
-                        //        if (msg == "exist") {
-                        //            alert('Danh mục đã tồn tại')
-                        //        } else {
-                        //            document.getElementById("myform").submit();
-                        //        }
-                        //    }).fail(function (jqXHR, textStatus) {
-                        //        alert("Request failed: " + textStatus);
-                        //    })
-                        document.getElementById("myform").submit();
+                                if (msg == "exist") {
+                                    alert('Danh mục đã tồn tại')
+                                } else {
+                                    document.getElementById("myform").submit();
+                                }
+                            }).fail(function (jqXHR, textStatus) {
+                                alert("Request failed: " + textStatus);
+                            })
                     } else {
                         document.getElementById('errorName').innerText = "Phải nhập tên danh mục nha"
                     }

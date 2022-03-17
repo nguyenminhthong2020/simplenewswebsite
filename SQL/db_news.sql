@@ -1,6 +1,9 @@
 ﻿use db_news
 go
 
+ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = OFF 
+GO
+
 create table dbo.Member(
  Mem_UName nvarchar(50) not null primary key,
  Mem_Pas varchar(500) null,

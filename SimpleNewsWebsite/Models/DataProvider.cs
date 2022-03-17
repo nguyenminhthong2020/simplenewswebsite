@@ -13,7 +13,8 @@ namespace SimpleNewsWebsite.Models
         {
             try
             {
-                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=db_news;Integrated Security=True");
+                //SqlConnection con = new SqlConnection(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = db_news; Integrated Security = True");
+                SqlConnection con = new SqlConnection(@"Data Source=LAPTOP-FQHMPOFH\MSSQLSERVER01;Initial Catalog=db_news;Integrated Security=True");
                 con.Open();
                 return con;
             }
