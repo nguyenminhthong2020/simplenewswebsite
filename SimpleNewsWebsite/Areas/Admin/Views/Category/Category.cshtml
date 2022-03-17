@@ -157,7 +157,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             @{
-                var frmMyAction = "";
+                //var frmMyAction = "";
                 var btnValue = "";
                 var btnText = "Thêm/Cập nhật";
 
@@ -220,7 +220,7 @@
     <script src="~/admin/js/category.js"></script>
     <script>
         $(document).ready(function () {
-            
+
             loadData(@ViewBag.PerPage, 1, "");
 
             document.getElementById("btnSearch").addEventListener('click', function (e) {
